@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="250dp"
+    android:layout_height="100dp"
+    android:layout_gravity="center"
+    android:weightSum="10"
+    android:orientation="vertical"
+    android:divider="@drawable/verticalseperator"
+    android:showDividers="middle"
+    >
+        <TextView
+            android:layout_weight="7"
+            android:gravity="center"
+            android:textColor="@android:color/holo_blue_dark"
+            android:text="About Me"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <TextView
+            android:layout_weight="3"
+            android:padding="10dp"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="For any type of query contact at atikurzamanpallob@gmail.com "
+            />
+
+</LinearLayout>

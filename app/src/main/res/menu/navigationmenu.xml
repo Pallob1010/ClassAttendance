@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Course Related">
+        <menu>
+            <item
+                android:id="@+id/addcourse"
+                android:icon="@drawable/attendence"
+                android:title="Add Course" />
+            <item
+                android:id="@+id/addstudent"
+                android:icon="@drawable/add"
+                android:title="Add Student" />
+            <item
+                android:id="@+id/removestudent"
+                android:icon="@drawable/remove"
+                android:title="Remove Student" />
+
+            <item
+                android:id="@+id/deletecourse"
+                android:icon="@drawable/singledelete"
+                android:title="Delete Course" />
+
+
+        </menu>
+
+    </item>
+    <item android:title="Others">
+        <menu>
+            <item
+                android:id="@+id/calculatemarks"
+                android:icon="@drawable/calculate"
+                android:title="Calculate Marks" />
+            <item
+                android:title="About Me"
+                android:icon="@drawable/aboutme"
+                android:id="@+id/aboutme"
+                />
+            <item
+                android:id="@+id/exit"
+                android:icon="@drawable/exit"
+                android:title="Exit" />
+        </menu>
+
+    </item>
+
+
+
+</menu>

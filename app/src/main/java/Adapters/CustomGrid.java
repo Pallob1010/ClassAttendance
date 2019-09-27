@@ -70,9 +70,9 @@ public class CustomGrid extends BaseAdapter{
             holder = (ViewHolder)row.getTag();
         }
 
-        holder.CourseCode.setText(object.get(position).getCourseCode());
+        holder.CourseCode.setText(object.get(position).getCourseCode().toUpperCase());
         holder.Series.setText("Series: "+object.get(position).getSeries());
-        holder.Section.setText("Section: "+object.get(position).getSection());
+        holder.Section.setText("Section: "+object.get(position).getSection().toUpperCase());
         return row;
     }
 }

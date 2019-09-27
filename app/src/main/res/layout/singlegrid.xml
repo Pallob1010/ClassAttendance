@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     app:cardElevation="5dp"
+    app:cardCornerRadius="5dp"
     app:cardBackgroundColor="@android:color/holo_orange_light"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -23,7 +24,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="14sp"
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
             app:layout_constraintBottom_toTopOf="@+id/singlegridsection"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -32,19 +34,21 @@
             app:layout_constraintVertical_chainStyle="spread_inside" />
 
         <TextView
+            android:textColor="@android:color/white"
             android:layout_weight="1"
             android:text="A"
             android:gravity="center"
-            android:textSize="14sp"
+            android:textSize="20sp"
             android:id="@+id/singlegridsection"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
 
         <TextView
+            android:textColor="@android:color/black"
             android:layout_weight="1"
             android:text="CSE-107"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:id="@+id/singlegridcourseCode"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

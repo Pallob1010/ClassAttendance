@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="2dp"
+    android:weightSum="10"
+    android:background="@android:color/white"
+    >
+
+    <LinearLayout
+        android:layout_weight="8"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="2"
+        android:elevation="5dp"
+        android:background="@color/colorPrimary"
+        >
+
+
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:id="@+id/lay1"
+            android:weightSum="4"
+            android:elevation="10dp"
+            >
+            <TextView
+                android:textStyle="bold"
+                android:id="@+id/tv1"
+                android:gravity="center"
+                android:text="Math-407"
+                android:layout_weight="1"
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+
+                android:id="@+id/tv2"
+                android:text="Series:12"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+
+                android:id="@+id/tv3"
+                android:text="Section:A"
+                android:gravity="center"
+                android:textColor="@android:color/white"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+            <TextView
+
+                android:id="@+id/tv4"
+                android:text="Cycle:10th"
+                android:textColor="@android:color/white"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
+        <android.support.design.widget.TabLayout
+            android:layout_weight="1"
+            app:tabTextColor="@android:color/white"
+            android:layout_below="@id/lay1"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_width="match_parent"
+            android:id="@+id/TabLayout"
+            app:tabSelectedTextColor="@color/Red"
+
+
+            />
+
+    </LinearLayout>
+
+
+
+
+    <android.support.v4.view.ViewPager
+        android:layout_weight="2"
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+    </android.support.v4.view.ViewPager>
+
+</LinearLayout>

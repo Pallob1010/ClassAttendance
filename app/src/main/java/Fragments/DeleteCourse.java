@@ -1,6 +1,7 @@
 package Fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,6 +14,11 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import Adapters.DeleteAdapter;
+import Databases.DatabaseAday;
+import Databases.DatabaseBday;
+import Databases.DatabaseCday;
+import Databases.DatabaseDday;
+import Databases.DatabaseEday;
 import Databases.Information;
 import Interfaces.Backtrack;
 import Model.CourseDetails;
@@ -31,11 +37,24 @@ public class DeleteCourse extends Fragment implements View.OnClickListener {
     ArrayList<Stateholder> state;
     Backtrack backtrack;
     ArrayList<CourseDetails> object;
+    Context context;
 
-    public DeleteCourse(Information information, Backtrack backtrack) {
+    DatabaseAday aday;
+    DatabaseBday bday;
+    DatabaseCday cday;
+    DatabaseDday dday;
+    DatabaseEday eday;
+
+    public DeleteCourse(Information information, Backtrack backtrack, Context context) {
         this.information = information;
         state = new ArrayList<>();
         this.backtrack = backtrack;
+        this.context=context;
+        aday = new DatabaseAday(context);
+        bday = new DatabaseBday(context);
+        cday = new DatabaseCday(context);
+        dday = new DatabaseDday(context);
+        eday = new DatabaseEday(context);
     }
 
     @Override
@@ -82,10 +101,17 @@ public class DeleteCourse extends Fragment implements View.OnClickListener {
     }
 
     public void delete() {
+
         boolean var=false;
+
         for (int i = 0; i < state.size(); i++) {
             if (state.get(i).isSelected()) {
                 information.DeleteSingle(object.get(i).getCourseCode(), object.get(i).getSeries(), object.get(i).getSection());
+                aday.DeleteByCSS(object.get(i).getCourseCode(), object.get(i).getSeries(), object.get(i).getSection());
+                bday.DeleteByCSS(object.get(i).getCourseCode(), object.get(i).getSeries(), object.get(i).getSection());
+                cday.DeleteByCSS(object.get(i).getCourseCode(), object.get(i).getSeries(), object.get(i).getSection());
+                dday.DeleteByCSS(object.get(i).getCourseCode(), object.get(i).getSeries(), object.get(i).getSection());
+                eday.DeleteByCSS(object.get(i).getCourseCode(), object.get(i).getSeries(), object.get(i).getSection());
                 var=true;
             }
         }

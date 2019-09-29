@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -8,44 +10,97 @@
     android:background="@android:color/white"
     >
 
-    <LinearLayout
-        android:layout_width="350dp"
-        android:layout_height="170dp"
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:layout_gravity="center"
-        android:id="@+id/setlay"
+        android:id="@+id/progresslayout"
         android:visibility="gone"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
         >
+
+        <TextView
+            android:id="@+id/creationpercentage"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center"
+            android:text="30%"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="50sp"
+            app:layout_constraintBottom_toTopOf="@+id/roundprogress1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <ProgressBar
+            android:id="@+id/roundprogress1"
             android:layout_width="match_parent"
             android:layout_height="110dp"
-            android:id="@+id/roundprogress1"
-            />
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            style="@android:style/Widget.Holo.ProgressBar.Large"
+            app:layout_constraintBottom_toTopOf="@+id/progressbar1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/creationpercentage" />
+
         <ProgressBar
-            android:layout_gravity="center"
+            android:id="@+id/progressbar1"
             style="@android:style/Widget.ProgressBar.Horizontal"
             android:layout_width="match_parent"
             android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
             android:maxHeight="20dp"
             android:minHeight="20dp"
-            android:id="@+id/progressbar1"
-            />
+            app:layout_constraintBottom_toTopOf="@+id/lokas"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/roundprogress1" />
 
 
         <TextView
-
+            android:textSize="20sp"
+            android:textColor="@android:color/black"
+            android:id="@+id/lokas"
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="32dp"
             android:gravity="center"
-            android:text="Creating Database...."
-            android:id="@+id/creatingdatabase"
-            />
+            android:text="Please Wait......."
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.105"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/progressbar1" />
 
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
     <LinearLayout
-        android:id="@+id/setset"
+        android:id="@+id/withoutprogresslayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -179,6 +234,7 @@
                     android:weightSum="6">
 
                     <EditText
+                        android:hint="e.g:12"
                         android:layout_weight="1"
                         android:id="@+id/seriesid"
                         android:layout_width="match_parent"
@@ -188,6 +244,7 @@
 
 
                     <EditText
+                        android:hint="e.g: A "
                         android:id="@+id/sectionid"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -196,6 +253,7 @@
                         android:inputType="text" />
 
                     <EditText
+                        android:hint="e.g: CSE-713"
                         android:id="@+id/courseid"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -205,6 +263,7 @@
 
 
                     <EditText
+                        android:hint="e.g: 123001"
                         android:id="@+id/firstrollid"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -214,16 +273,17 @@
 
 
                     <EditText
+                        android:hint="e.g: 60"
                         android:id="@+id/totalstudentsid"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-
                         android:gravity="center"
                         android:inputType="number" />
 
 
                     <EditText
+                        android:hint="e.g: 10"
                         android:id="@+id/attendancemarks"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"

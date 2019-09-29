@@ -836,6 +836,10 @@
         "source": "/home/pallob/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0-rc02.aar/cc267cb9cf7dd9657b4b126af703219e/res/drawable-mdpi-v4/abc_scrubber_control_to_pressed_mtrl_000.png"
     },
     {
+        "merged": "/mnt/Software/Project/ClassAttendance/app/build/intermediates/res/merged/debug/layout_progressdialog.xml.flat",
+        "source": "/mnt/Software/Project/ClassAttendance/app/src/main/res/layout/progressdialog.xml"
+    },
+    {
         "merged": "/mnt/Software/Project/ClassAttendance/app/build/intermediates/res/merged/debug/drawable-hdpi-v4_abc_btn_radio_to_on_mtrl_015.png.flat",
         "source": "/home/pallob/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0-rc02.aar/cc267cb9cf7dd9657b4b126af703219e/res/drawable-hdpi-v4/abc_btn_radio_to_on_mtrl_015.png"
     },
@@ -1390,6 +1394,10 @@
     {
         "merged": "/mnt/Software/Project/ClassAttendance/app/build/intermediates/res/merged/debug/color_abc_tint_spinner.xml.flat",
         "source": "/home/pallob/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0-rc02.aar/cc267cb9cf7dd9657b4b126af703219e/res/color/abc_tint_spinner.xml"
+    },
+    {
+        "merged": "/mnt/Software/Project/ClassAttendance/app/build/intermediates/res/merged/debug/layout_singlerecycler.xml.flat",
+        "source": "/mnt/Software/Project/ClassAttendance/app/src/main/res/layout/singlerecycler.xml"
     },
     {
         "merged": "/mnt/Software/Project/ClassAttendance/app/build/intermediates/res/merged/debug/drawable-hdpi_exit.png.flat",

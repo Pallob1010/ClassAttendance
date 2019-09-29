@@ -6,6 +6,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
+import Model.RollState;
+
 public class DatabaseBday extends SQLiteOpenHelper {
     public static final String DatabaseName="Databasebday.db";
     public static final String TableName="TableB";
@@ -66,53 +70,6 @@ public class DatabaseBday extends SQLiteOpenHelper {
 
     }
 
-    public Cursor GetEverythingday(String course,  String section, String cycle, String day,String series){
-        SQLiteDatabase db=this.getWritableDatabase();
-
-        String SQL="SELECT * FROM "+TableName+" WHERE Course = "+"'"+course+"'"+" AND Section = "+"'"+section+"'" +" AND Cycle = "+"'"+cycle+"'" +" AND Day = "+"'"+day+"'"+" AND Series="+"'"+series+"'";
-        Cursor cursor=db.rawQuery(SQL,null);
-        return cursor;
-
-
-    }
-    public Cursor GetStateBday(String course,String series,String section,String cycle,String day){
-        SQLiteDatabase db=this.getWritableDatabase();
-
-        String SQL="SELECT State FROM "+TableName+" WHERE Course = "+"'"+course+"'"+" AND Series = "+"'"+series+"'"+" AND Section = "+"'"+section+"'" +" AND Cycle = "+"'"+cycle+"'" +" AND Day = "+"'"+day+"'";
-        Cursor cursor=db.rawQuery(SQL,null);
-        return cursor;
-
-
-    }
-
-    public Cursor GetRollStateBday(String course,String series,String section,String cycle){
-        SQLiteDatabase db=this.getWritableDatabase();
-
-        String SQL="SELECT State FROM "+TableName+" WHERE Course = "+"'"+course+"'"+" AND Series = "+"'"+series+"'"+" AND Section = "+"'"+section+"'" +" AND Cycle = "+"'"+cycle+"'" +" AND Day = "+"'"+"B"+"'" ;
-        Cursor cursor=db.rawQuery(SQL,null);
-        return cursor;
-
-
-    }
-
-    public Cursor GetStateExtra(String course,String series,String section,String cycle,String roll){
-        SQLiteDatabase db=this.getWritableDatabase();
-
-        String SQL="SELECT State FROM "+TableName+" WHERE Course = "+"'"+course+"'"+" AND Series = "+"'"+series+"'"+" AND Section = "+"'"+section+"'" +" AND Cycle = "+"'"+cycle+"'" +" AND Day = "+"'"+"B"+"'"+" AND Roll="+"'"+roll+"'";
-        Cursor cursor=db.rawQuery(SQL,null);
-        return cursor;
-
-
-    }
-    public Cursor GetAll(String course, String series, String section){
-        SQLiteDatabase db=this.getWritableDatabase();
-
-        String SQL="SELECT * FROM "+TableName+" WHERE Course = "+"'"+course+"'"+" AND Series = "+"'"+series+"'"+" AND Section = "+"'"+section+"'";
-        Cursor cursor=db.rawQuery(SQL,null);
-        return cursor;
-
-
-    }
 
     public void DeleteAll(){
         SQLiteDatabase db=this.getWritableDatabase();
@@ -134,4 +91,43 @@ public class DatabaseBday extends SQLiteOpenHelper {
         db.execSQL(SQL);
 
     }
+
+    public void deleteByRoll(String series, String section,String course, String roll) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String SQL = "DELETE FROM " + TableName + " WHERE Course = " + "'" + course + "'" + " AND Roll = " + "'" + roll + "'" + " AND Section = " + "'" + section + "'"+ " AND Series = " + "'" + series + "'";
+        db.execSQL(SQL);
+
+    }
+
+    public ArrayList<String> getRoll(String series, String section, String course, String cycle) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<String> list = new ArrayList<>();
+        String SQL = "SELECT Roll FROM " + TableName + " WHERE Course = " + "'" + course + "'" + " AND Cycle = " + "'" + cycle + "'" + " AND Section = " + "'" + section + "'" + " AND Series=" + "'" + series + "'";
+        Cursor cursor = db.rawQuery(SQL, null);
+
+        while (cursor.moveToNext()) {
+            list.add(cursor.getString(0));
+
+        }
+
+        return list;
+
+
+    }
+    public ArrayList<String> getState(String series, String section, String course, String cycle) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<String>ob=new ArrayList<>();
+        String SQL = "SELECT State FROM " + TableName + " WHERE Course = " + "'" + course + "'" + " AND Cycle = " + "'" + cycle + "'" + " AND Section = " + "'" + section + "'" + " AND Series=" + "'" + series + "'";
+        Cursor cursor = db.rawQuery(SQL, null);
+
+        while (cursor.moveToNext()) {
+            ob.add(cursor.getString(0));
+
+        }
+
+        return ob;
+
+
+    }
+
 }

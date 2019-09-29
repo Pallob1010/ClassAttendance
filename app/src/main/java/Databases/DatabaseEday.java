@@ -6,8 +6,13 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+
+import Model.RollState;
+
+
 public class DatabaseEday extends SQLiteOpenHelper {
-    public static final String DatabaseName="Databasedday.db";
+    public static final String DatabaseName="DatabaseEday.db";
     public static final String TableName="TableD";
     Context context;
     public static final String col_1="Course";
@@ -34,7 +39,6 @@ public class DatabaseEday extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+TableName);
         onCreate(db);
-
     }
 
 
@@ -52,7 +56,8 @@ public class DatabaseEday extends SQLiteOpenHelper {
         contentValues.put(COL_7,state);
 
         long result=db.insert(TableName,null,contentValues);
-    return 1;
+
+        return 1;
     }
 
     public void UpdateStateEday(String course,String series,String section,String cycle,String day,String roll,String state){
@@ -66,53 +71,6 @@ public class DatabaseEday extends SQLiteOpenHelper {
 
     }
 
-    public Cursor GetEverythingday(String course,  String section, String cycle, String day,String series){
-        SQLiteDatabase db=this.getWritableDatabase();
-
-        String SQL="SELECT * FROM "+TableName+" WHERE Course = "+"'"+course+"'"+" AND Section = "+"'"+section+"'" +" AND Cycle = "+"'"+cycle+"'" +" AND Day = "+"'"+day+"'"+" AND Series="+"'"+series+"'";
-        Cursor cursor=db.rawQuery(SQL,null);
-        return cursor;
-
-
-    }
-    public Cursor GetStateEday(String course,String series,String section,String cycle,String day){
-        SQLiteDatabase db=this.getWritableDatabase();
-
-        String SQL="SELECT State FROM "+TableName+" WHERE Course = "+"'"+course+"'"+" AND Series = "+"'"+series+"'"+" AND Section = "+"'"+section+"'" +" AND Cycle = "+"'"+cycle+"'" +" AND Day = "+"'"+day+"'" ;
-        Cursor cursor=db.rawQuery(SQL,null);
-        return cursor;
-
-
-    }
-
-    public Cursor GetRollStateEday(String course,String series,String section,String cycle){
-        SQLiteDatabase db=this.getWritableDatabase();
-
-        String SQL="SELECT State FROM "+TableName+" WHERE Course = "+"'"+course+"'"+" AND Series = "+"'"+series+"'"+" AND Section = "+"'"+section+"'" +" AND Cycle = "+"'"+cycle+"'" +" AND Day = "+"'"+"E"+"'" ;
-        Cursor cursor=db.rawQuery(SQL,null);
-        return cursor;
-
-
-    }
-    public Cursor GetStateExtra(String course,String series,String section,String cycle,String roll){
-        SQLiteDatabase db=this.getWritableDatabase();
-
-        String SQL="SELECT State FROM "+TableName+" WHERE Course = "+"'"+course+"'"+" AND Series = "+"'"+series+"'"+" AND Section = "+"'"+section+"'" +" AND Cycle = "+"'"+cycle+"'" +" AND Day = "+"'"+"E"+"'"+" AND Roll="+"'"+roll+"'";
-        Cursor cursor=db.rawQuery(SQL,null);
-        return cursor;
-
-
-    }
-
-    public Cursor GetAll(String course, String series, String section){
-        SQLiteDatabase db=this.getWritableDatabase();
-
-        String SQL="SELECT * FROM "+TableName+" WHERE Course = "+"'"+course+"'"+" AND Series = "+"'"+series+"'"+" AND Section = "+"'"+section+"'";
-        Cursor cursor=db.rawQuery(SQL,null);
-        return cursor;
-
-
-    }
 
     public void DeleteAll(){
         SQLiteDatabase db=this.getWritableDatabase();
@@ -132,6 +90,43 @@ public class DatabaseEday extends SQLiteOpenHelper {
         String SQL="DELETE FROM "+TableName+" WHERE Course = "+"'"+course+"'"+" AND Roll = "+"'"+roll+"'"+" AND Section = "+"'"+section+"'";
 
         db.execSQL(SQL);
+
+    }
+
+    public void deleteByRoll(String series, String section,String course, String roll) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String SQL = "DELETE FROM " + TableName + " WHERE Course = " + "'" + course + "'" + " AND Roll = " + "'" + roll + "'" + " AND Section = " + "'" + section + "'"+ " AND Series = " + "'" + series + "'";
+        db.execSQL(SQL);
+
+    }
+    public ArrayList<String> getRoll(String series, String section, String course, String cycle) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<String> list = new ArrayList<>();
+        String SQL = "SELECT Roll FROM " + TableName + " WHERE Course = " + "'" + course + "'" + " AND Cycle = " + "'" + cycle + "'" + " AND Section = " + "'" + section + "'" + " AND Series=" + "'" + series + "'";
+        Cursor cursor = db.rawQuery(SQL, null);
+
+        while (cursor.moveToNext()) {
+            list.add(cursor.getString(0));
+
+        }
+
+        return list;
+
+
+    }
+    public ArrayList<String> getState(String series, String section, String course, String cycle) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ArrayList<String>ob=new ArrayList<>();
+        String SQL = "SELECT State FROM " + TableName + " WHERE Course = " + "'" + course + "'" + " AND Cycle = " + "'" + cycle + "'" + " AND Section = " + "'" + section + "'" + " AND Series=" + "'" + series + "'";
+        Cursor cursor = db.rawQuery(SQL, null);
+
+        while (cursor.moveToNext()) {
+            ob.add(cursor.getString(0));
+
+        }
+
+        return ob;
+
 
     }
 

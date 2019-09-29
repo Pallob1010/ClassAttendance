@@ -1096,6 +1096,7 @@ id center
 id center_horizontal
 id center_vertical
 id chains
+id chbx_p
 id checkBoxselect
 id checkbox
 id chronometer
@@ -1211,6 +1212,7 @@ id removestudent
 id right
 id right_icon
 id right_side
+id roll_id
 id rollbox
 id rollinputId
 id rootLayout
@@ -1412,10 +1414,12 @@ layout notification_template_media
 layout notification_template_media_custom
 layout notification_template_part_chronometer
 layout notification_template_part_time
+layout progressdialog
 layout select_dialog_item_material
 layout select_dialog_multichoice_material
 layout select_dialog_singlechoice_material
 layout singlegrid
+layout singlerecycler
 layout support_simple_spinner_dropdown_item
 menu navigationmenu
 mipmap ic_launcher

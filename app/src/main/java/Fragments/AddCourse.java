@@ -148,15 +148,15 @@ public class AddCourse extends Fragment implements View.OnClickListener {
 
                 for (int j = firstroll; j < lastroll; j++) {
 
-                    count += aday.insertRollStateAday(Course.toUpperCase(), Series, Section.toUpperCase(), cycles[i], "A", String.valueOf(j), "NULL");
+                    count += aday.insertRollStateAday(Course.toUpperCase(), Series, Section.toUpperCase(), cycles[i], "A", String.valueOf(j), "false");
                     publishProgress(String.valueOf(count));
-                    count += bday.insertRollStateBday(Course.toUpperCase(), Series, Section.toUpperCase(), cycles[i], "B", String.valueOf(j), "NULL");
+                    count += bday.insertRollStateBday(Course.toUpperCase(), Series, Section.toUpperCase(), cycles[i], "B", String.valueOf(j), "false");
                     publishProgress(String.valueOf(count));
-                    count += cday.insertRollStateCDay(Course.toUpperCase(), Series, Section.toUpperCase(), cycles[i], "C", String.valueOf(j), "NULL");
+                    count += cday.insertRollStateCDay(Course.toUpperCase(), Series, Section.toUpperCase(), cycles[i], "C", String.valueOf(j), "false");
                     publishProgress(String.valueOf(count));
-                    count += dday.insertRollStateDDay(Course.toUpperCase(), Series, Section.toUpperCase(), cycles[i], "D", String.valueOf(j), "NULL");
+                    count += dday.insertRollStateDDay(Course.toUpperCase(), Series, Section.toUpperCase(), cycles[i], "D", String.valueOf(j), "false");
                     publishProgress(String.valueOf(count));
-                    count += eday.insertRollStateEDay(Course.toUpperCase(), Series, Section.toUpperCase(), cycles[i], "E", String.valueOf(j), "NULL");
+                    count += eday.insertRollStateEDay(Course.toUpperCase(), Series, Section.toUpperCase(), cycles[i], "E", String.valueOf(j), "false");
                     publishProgress(String.valueOf(count));
 
 

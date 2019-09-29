@@ -20,9 +20,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
-
 import java.util.ArrayList;
-
 import Adapters.CustomGrid;
 import Databases.Information;
 import Fragments.AddCourse;
@@ -36,6 +34,7 @@ import Day.TablayoutCaller;
 import Interfaces.Backtrack;
 import Interfaces.ReverseCaller;
 import Model.CourseDetails;
+
 
 public class MainActivity extends AppCompatActivity implements Backtrack, ReverseCaller, AdapterView.OnItemClickListener {
     ActionBarDrawerToggle toggle;
@@ -148,7 +147,8 @@ public class MainActivity extends AppCompatActivity implements Backtrack, Revers
     }
 
     public void addStudent() {
-        AddStudent addStudent = new AddStudent(information);
+        Backtrack backtrack = this;
+        AddStudent addStudent = new AddStudent(information,backtrack,this);
         fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.rootLayout, addStudent);
@@ -234,7 +234,7 @@ public class MainActivity extends AppCompatActivity implements Backtrack, Revers
     @Override
     public void callreverse(String series, String section, String course) {
         Backtrack backtrack = this;
-        DeleteIndividual individual = new DeleteIndividual(series, section, course, backtrack);
+        DeleteIndividual individual = new DeleteIndividual(series, section, course, backtrack,this);
         fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.rootLayout, individual);

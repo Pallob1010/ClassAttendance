@@ -14,6 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+
 import Adapters.PagerAdapter;
 import spark.loop.classattendance.MainActivity;
 import spark.loop.classattendance.R;
@@ -51,7 +54,7 @@ public class TablayoutCaller extends Fragment {
         tabLayout.addTab(tabLayout.newTab().setText("D day"));
         tabLayout.addTab(tabLayout.newTab().setText("E day"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        adapter=new PagerAdapter(getChildFragmentManager(),getContext());
+        adapter=new PagerAdapter(getChildFragmentManager(),getContext(),series,section,course,cycle);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
         print();

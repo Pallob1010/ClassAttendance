@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:padding="5dp"
+    android:orientation="horizontal"
+    android:weightSum="4"
+
+
+    >
+
+    <TextView
+        android:layout_weight="1"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:gravity="center"
+        android:id="@+id/resultroll"
+        android:textSize="20dp"
+        android:text="123004"
+        android:textColor="@android:color/black"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        />
+
+    <TextView
+        android:layout_weight="1"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:gravity="center"
+        android:id="@+id/resultattendance"
+        android:textSize="20dp"
+        android:text="90%"
+        android:textColor="@android:color/black"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        />
+
+
+    <TextView
+        android:layout_weight="1"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:gravity="center"
+        android:id="@+id/resultabsence"
+        android:textSize="20dp"
+        android:text="10%"
+        android:textColor="@android:color/black"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="DuplicateIds"
+        />
+
+    <TextView
+        android:layout_weight="1"
+        android:paddingTop="5dp"
+        android:paddingLeft="5dp"
+        android:gravity="center"
+        android:id="@+id/resultmarks"
+        android:textSize="20dp"
+        android:textColor="@android:color/black"
+        android:text="9"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:ignore="DuplicateIds"
+        />
+
+
+
+</LinearLayout>

@@ -173,6 +173,7 @@ public class AddStudent extends Fragment implements AdapterView.OnItemSelectedLi
             count = eday.insertRollStateEDay(course.toUpperCase(), series, section.toUpperCase(), cycles[i], "A", Roll, "false");
 
         }
+        Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show();
 
     }
 

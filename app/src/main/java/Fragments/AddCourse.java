@@ -57,7 +57,7 @@ public class AddCourse extends Fragment implements View.OnClickListener {
         layout1 = view.findViewById(R.id.withoutprogresslayout);
         layout2 = view.findViewById(R.id.progresslayout);
         progressBar = view.findViewById(R.id.progressbar1);
-        Displaypercentage = view.findViewById(R.id.creationpercentage);
+        Displaypercentage = view.findViewById(R.id.resultpercentage);
         progressBar.setMax(4200);
         Ok = view.findViewById(R.id.create);
         Ok.setOnClickListener(this);

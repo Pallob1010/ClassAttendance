@@ -1,57 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="10"
     android:background="@android:color/white"
     >
 
-    <LinearLayout
-        android:layout_weight="1"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:elevation="30dp"
-        android:orientation="horizontal"
-        android:weightSum="4"
+        android:layout_weight="1"
         android:background="#323232"
-        >
+        android:elevation="30dp">
+
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/textView"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:gravity="center"
             android:text="Course"
-            android:gravity="center"
             android:textColor="@android:color/white"
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/cs"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/cs"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:gravity="center"
             android:text="Series"
-            android:gravity="center"
             android:textColor="@android:color/white"
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/textView2"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:gravity="center"
-            android:textColor="@android:color/white"
             android:text="Section"
-            />
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/se"
+            app:layout_constraintStart_toEndOf="@+id/cs"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/se"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
             android:gravity="center"
-            android:textColor="@android:color/white"
             android:text="Select"
-            />
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView2"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-
-    </LinearLayout>
+    </android.support.constraint.ConstraintLayout>
 
     <LinearLayout
         android:layout_weight="9"

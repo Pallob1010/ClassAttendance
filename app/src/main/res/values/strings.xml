@@ -3,4 +3,12 @@
     <string name="courses">Courses</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="log_in">Log In</string>
+    <string name="string_log_in" />
+    <string name="submit">Submit</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="password">Password</string>
+    <string name="todo">TODO</string>
+    <string name="not_registered"><u>Not Registered?</u></string>
+    <string name="forget_password"><u>Forget Password?</u></string>
 </resources>

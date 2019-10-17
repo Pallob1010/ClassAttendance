@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    >
+
+
+    <TextView
+        android:id="@+id/tit"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@android:color/holo_orange_dark"
+        android:text="Class Attendance"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/imageView"
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@color/colorPrimaryDark"
+        android:contentDescription="@string/todo"
+        android:gravity="center"
+        android:text="Login"
+        android:textColor="@android:color/white"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="@+id/tit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tit" />
+
+    <TextView
+        android:id="@+id/th"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/phonenumber"
+        app:layout_constraintBottom_toTopOf="@+id/pas"
+        app:layout_constraintEnd_toStartOf="@+id/edittextphoneNumber"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <TextView
+        android:id="@+id/pas"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/password"
+        app:layout_constraintBottom_toTopOf="@+id/Submitt"
+        app:layout_constraintEnd_toStartOf="@+id/edittextpassword"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/th" />
+
+    <EditText
+        android:id="@+id/edittextphoneNumber"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Phone Number"
+        android:inputType="number"
+        app:layout_constraintBottom_toBottomOf="@+id/th"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/th"
+        app:layout_constraintTop_toTopOf="@+id/th" />
+
+    <EditText
+        android:id="@+id/edittextpassword"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:ems="10"
+        android:gravity="center"
+        android:hint="Password"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="@+id/pas"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/pas"
+        app:layout_constraintTop_toTopOf="@+id/pas" />
+
+    <Button
+        android:id="@+id/Submitt"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/buttonstate"
+        android:text="@string/submit"
+        android:textColor="@android:color/black"
+        app:layout_constraintBottom_toTopOf="@+id/notRegistered"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pas" />
+
+    <TextView
+        android:textColor="#1628E5"
+        android:id="@+id/notRegistered"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/not_registered"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Submitt" />
+
+    <TextView
+        android:textColor="#1628E5"
+        android:id="@+id/forgotpassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/forget_password"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Submitt" />
+
+</android.support.constraint.ConstraintLayout>

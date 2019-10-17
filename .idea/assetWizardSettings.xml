@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="jar:file:/home/pallob/LinuxSoft/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_accessibility_black_24dp.xml" />
+                                      <entry key="url" value="jar:file:/home/pallob/LinuxSoft/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/communication/ic_vpn_key_black_24dp.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,7 +33,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="aboutme" />
+                            <entry key="color" value="43e519" />
+                            <entry key="outputName" value="password" />
                             <entry key="sourceFile" value="$USER_HOME$" />
                           </map>
                         </option>

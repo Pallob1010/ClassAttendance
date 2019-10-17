@@ -42,9 +42,9 @@ public class IndividualAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View view, ViewGroup parent) {
+    public View getView(final int position, View rowView, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
-        View rowView = inflater.inflate(R.layout.indsing, null, true);
+        rowView = inflater.inflate(R.layout.indsing, null, true);
         TextView Roll= rowView.findViewById(R.id.rollbox);
         final CheckBox CHBX = rowView.findViewById(R.id.checkBoxselect);
 
@@ -54,24 +54,34 @@ public class IndividualAdapter extends BaseAdapter {
             CHBX.setChecked(false);
         }
         Roll.setText(object.get(position));
+
         CHBX.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
 
                 if (isChecked) {
-
-                    for (int i=0;i<state.size();i++){
-                        state.get(i).setSelected(false);
-                    }
-                    state.get(position).setSelected(true);
                     CHBX.setChecked(true);
-                    notifyDataSetChanged();
-
+                    state.get(position).setSelected(true);
+                }else {
+                    state.get(position).setSelected(false);
+                    CHBX.setChecked(false);
                 }
             }
         });
+        rowView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!state.get(position).isSelected()){
+                    CHBX.setChecked(true);
+                    state.get(position).setSelected(true);
 
+                }else {
+                    state.get(position).setSelected(false);
+                    CHBX.setChecked(false);
+                }
+            }
+        });
 
         return rowView;
     }

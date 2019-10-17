@@ -43,9 +43,14 @@ public class RemoveAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View view, ViewGroup parent) {
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+    }
+
+    @Override
+    public View getView(final int position, View rowView, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
-        View rowView = inflater.inflate(R.layout.deletesingle, null, true);
+        rowView = inflater.inflate(R.layout.deletesingle, null, true);
         TextView Course= rowView.findViewById(R.id.cou);
         TextView Series = rowView.findViewById(R.id.ser);
         TextView Section = rowView.findViewById(R.id.sec);
@@ -61,24 +66,44 @@ public class RemoveAdapter extends BaseAdapter {
         Series.setText(object.get(position).getSeries());
         Section.setText(object.get(position).getSection().toUpperCase());
 
+
         CHBX.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
 
                 if (isChecked) {
-
                     for (int i=0;i<state.size();i++){
-                            state.get(i).setSelected(false);
+                        state.get(i).setSelected(false);
                     }
                     state.get(position).setSelected(true);
                     CHBX.setChecked(true);
                     notifyDataSetChanged();
-
+                }else {
+                    state.get(position).setSelected(false);
+                    CHBX.setChecked(false);
                 }
             }
         });
 
+        rowView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!state.get(position).isSelected()){
+
+                    for (int i=0;i<state.size();i++){
+                        state.get(i).setSelected(false);
+                    }
+                    notifyDataSetChanged();
+                    state.get(position).setSelected(true);
+                    CHBX.setChecked(true);
+
+                }else {
+                    state.get(position).setSelected(false);
+                    CHBX.setChecked(false);
+                }
+            }
+        });
 
         return rowView;
     }

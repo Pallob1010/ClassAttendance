@@ -6,6 +6,12 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowAnimationStyle">@style/ActivityTheme</item>
     </style>
+    <style name="ActivityTheme">
+        <item name="android:windowEnterAnimation">@anim/slide_left</item>
+        <item name="android:windowExitAnimation">@anim/slide_down</item>
+    </style>
+
 
 </resources>

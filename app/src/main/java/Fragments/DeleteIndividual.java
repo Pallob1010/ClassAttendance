@@ -110,9 +110,11 @@ public class DeleteIndividual extends Fragment implements View.OnClickListener {
                 dday.deleteByRoll(series, section, course, object.get(i));
                 eday.deleteByRoll(series, section, course, object.get(i));
                 var = true;
+
             }
         }
         if (var) {
+            Toast.makeText(getContext(), "Done", Toast.LENGTH_SHORT).show();
             backtrack.Invisible();
         } else {
             Toast.makeText(getContext(), "Select atleast a student First!!!", Toast.LENGTH_SHORT).show();

@@ -150,15 +150,28 @@ public class Information extends SQLiteOpenHelper {
     public ArrayList<CourseDetails> getInformation(){
         SQLiteDatabase db=this.getWritableDatabase();
         ArrayList<CourseDetails>object=new ArrayList<>();
-        String SQL="SELECT Course,Series,Section FROM "+TableName;
+        String SQL="SELECT Course,Series,Section,Marks FROM "+TableName;
         Cursor cursor=db.rawQuery(SQL,null);
         while (cursor.moveToNext()) {
-            object.add(new CourseDetails(cursor.getString(0),cursor.getString(1),cursor.getString(2)));
-
+            object.add(new CourseDetails(cursor.getString(0),cursor.getString(1),cursor.getString(2),Integer.parseInt(cursor.getString(3))));
         }
         return object;
     }
 
+    public boolean noData(){
+
+        String countQuery = "SELECT  * FROM " + TableName;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(countQuery, null);
+        int count = cursor.getCount();
+        cursor.close();
+
+        if(count==0){
+            return true;
+        }else {
+            return false;
+        }
+    }
 
 
 

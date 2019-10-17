@@ -116,6 +116,7 @@ public class DeleteCourse extends Fragment implements View.OnClickListener {
             }
         }
         if(var){
+            Toast.makeText(getContext(), "Done", Toast.LENGTH_SHORT).show();
             backtrack.Helper();
         }else {
             Toast.makeText(getContext(), "Select a Course First!!!", Toast.LENGTH_SHORT).show();

@@ -43,13 +43,13 @@ public class DeleteAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View view, ViewGroup parent) {
-        LayoutInflater inflater = context.getLayoutInflater();
-        View rowView = inflater.inflate(R.layout.deletesingle, null, true);
+    public View getView(final int position, View rowView, ViewGroup parent) {
+        final LayoutInflater inflater = context.getLayoutInflater();
+         rowView = inflater.inflate(R.layout.deletesingle, null, true);
         TextView Course= rowView.findViewById(R.id.cou);
         TextView Series = rowView.findViewById(R.id.ser);
         TextView Section = rowView.findViewById(R.id.sec);
-        CheckBox CHBX = rowView.findViewById(R.id.selectbox);
+        final CheckBox CHBX = rowView.findViewById(R.id.selectbox);
 
         Course.setText(object.get(position).getCourseCode().toUpperCase());
         Series.setText(object.get(position).getSeries());
@@ -61,13 +61,31 @@ public class DeleteAdapter extends BaseAdapter {
 
 
                 if (isChecked) {
+                    CHBX.setChecked(true);
                     state.get(position).setSelected(true);
-                } else {
+
+                }else {
+                    CHBX.setChecked(false);
                     state.get(position).setSelected(false);
+
                 }
             }
         });
 
+        rowView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!state.get(position).isSelected()){
+                    CHBX.setChecked(true);
+                    state.get(position).setSelected(true);
+
+                }else {
+                    CHBX.setChecked(false);
+                    state.get(position).setSelected(false);
+
+                }
+            }
+        });
 
         return rowView;
     }

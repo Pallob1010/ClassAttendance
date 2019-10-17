@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="10"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+  >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="9"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:background="#323232"
+            android:weightSum="4"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Math-407"
+                android:textColor="@android:color/white"
+                android:id="@+id/resco"
+
+                />
+            <TextView
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Series:12"
+                android:id="@+id/resse"
+
+                />
+            <TextView
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Section:A"
+                android:id="@+id/ressec"
+                />
+
+            <TextView
+                android:textColor="@android:color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Total Class: 39"
+                android:id="@+id/totalclass"
+
+                />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="9"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="8"
+                android:background="#323232"
+                android:elevation="20dp"
+                android:weightSum="4">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Roll"
+                    android:textColor="@android:color/white"
+                    android:textSize="20dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Present"
+                    android:textColor="@android:color/white"
+                    android:textSize="17dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Percentage"
+                    android:textColor="@android:color/white"
+                    android:textSize="17dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Marks"
+                    android:textColor="@android:color/white"
+                    android:textSize="20dp"
+
+                    />
+
+
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ListView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/resultlist"
+                    />
+                <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="50dp"
+                    android:layout_marginRight="16dp"
+                    android:clickable="true"
+                    android:theme="@style/Theme.AppCompat.Light"
+                    android:src="@drawable/save"
+                    app:elevation="4dp" />
+
+
+            </RelativeLayout>
+
+
+
+
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>

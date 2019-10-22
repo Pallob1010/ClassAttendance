@@ -166,11 +166,11 @@ public class AddStudent extends Fragment implements AdapterView.OnItemSelectedLi
     public void addStudents(String Roll) {
 
         for (int i = 0; i < 14; i++) {
-            count = aday.insertRollStateAday(course.toUpperCase(), series, section.toUpperCase(), cycles[i], "A", Roll, "false");
-            count = bday.insertRollStateBday(course.toUpperCase(), series, section.toUpperCase(), cycles[i], "A", Roll, "false");
-            count = cday.insertRollStateCDay(course.toUpperCase(), series, section.toUpperCase(), cycles[i], "A", Roll, "false");
-            count = dday.insertRollStateDDay(course.toUpperCase(), series, section.toUpperCase(), cycles[i], "A", Roll, "false");
-            count = eday.insertRollStateEDay(course.toUpperCase(), series, section.toUpperCase(), cycles[i], "A", Roll, "false");
+            count = aday.inserts(course.toUpperCase(), series, section.toUpperCase(), cycles[i], "A", Roll, "true",0);
+            count = bday.inserts(course.toUpperCase(), series, section.toUpperCase(), cycles[i], "B", Roll, "true",0);
+            count = cday.inserts(course.toUpperCase(), series, section.toUpperCase(), cycles[i], "C", Roll, "true",0);
+            count = dday.inserts(course.toUpperCase(), series, section.toUpperCase(), cycles[i], "D", Roll, "true",0);
+            count = eday.inserts(course.toUpperCase(), series, section.toUpperCase(), cycles[i], "E", Roll, "true",0);
 
         }
         Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show();

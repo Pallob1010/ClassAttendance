@@ -58,7 +58,7 @@ public class CustomListA extends ArrayAdapter<String> {
         } catch (Exception e) {
         }
 
-        if (S.equals("true")) {
+        if (S.equals("false")) {
 
             checkBox1.setChecked(true);
         } else {
@@ -68,13 +68,13 @@ public class CustomListA extends ArrayAdapter<String> {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (State.get(position).equals("false")) {
+                if (State.get(position).equals("true")) {
                     checkBox1.setChecked(true);
-                    databaseAday.UpdateStateAday(course, series, section, cycle, "A", object.get(position), "true");
+                    databaseAday.updateState(course, series, section, cycle, "A", object.get(position), "false");
                     StateUpdate();
                 } else {
                     checkBox1.setChecked(false);
-                    databaseAday.UpdateStateAday(course, series, section, cycle, "A", object.get(position), "false");
+                    databaseAday.updateState(course, series, section, cycle, "A", object.get(position), "true");
                     StateUpdate();
                 }
 
@@ -87,6 +87,6 @@ public class CustomListA extends ArrayAdapter<String> {
 
 
     public void StateUpdate() {
-        State=databaseAday.getState(series,section,course,cycle);
+        State=databaseAday.getState(series,section,course,cycle,"A");
     }
 }

@@ -120,7 +120,7 @@ public class Result extends Fragment implements View.OnClickListener {
 
     public class ResultCalculation extends AsyncTask<String, String, String> {
         int c1, c2, c3, c4, c5;
-
+        String adaycounter,bdaycounter,cdaycounter,ddaycounter,edaycounter;
 
 
         @Override
@@ -131,79 +131,85 @@ public class Result extends Fragment implements View.OnClickListener {
             cday = new DatabaseCday(context);
             dday = new DatabaseDday(context);
             eday = new DatabaseEday(context);
-            Rolls = aday.getRoll(series, section, course, "1st");
+            Rolls = aday.getRoll(series, section, course, "1st","A");
             numberofStudents = Rolls.size();
             present = new int[numberofStudents +1];
-            RunningTime = 15*numberofStudents+84;
+            RunningTime = numberofStudents*6;
             progressBar.setMax(RunningTime);
         }
 
         @Override
         protected String doInBackground(String... strings) {
 
-            for (int i = 0; i < 14; i++) {
+               for (int i=0; i<14;i++){
 
-                c1 = 0;
-                c3 = 0;
-                c5 = 0;
-                c2 = 0;
-                c4 = 0;
-                counter++;
-                progressBar.setProgress(counter);
-                publishProgress(String.valueOf(counter));
-                stateA = aday.getState(series, section, course, cycles[i]);
-                counter++;
-                progressBar.setProgress(counter);
-                publishProgress(String.valueOf(counter));
-                stateB = bday.getState(series, section, course, cycles[i]);
-                counter++;
-                progressBar.setProgress(counter);
-                publishProgress(String.valueOf(counter));
-                stateC = cday.getState(series, section, course, cycles[i]);
-                counter++;
-                progressBar.setProgress(counter);
-                publishProgress(String.valueOf(counter));
-                stateD = dday.getState(series, section, course, cycles[i]);
-                counter++;
-                progressBar.setProgress(counter);
-                publishProgress(String.valueOf(counter));
-                stateE = eday.getState(series, section, course, cycles[i]);
-                counter++;
-                progressBar.setProgress(counter);
-                publishProgress(String.valueOf(counter));
-                for (int j = 0; j < numberofStudents; j++) {
-                    if (stateA.get(j).equals("true")) {
-                        c1 = 1;
-                        present[j] = present[j] + 1;
+                   c1 = 0;
+                   c3 = 0;
+                   c5 = 0;
+                   c2 = 0;
+                   c4 = 0;
+                   counter++;
+                   progressBar.setProgress(counter);
+                   publishProgress(String.valueOf(counter));
+                   stateA = aday.getState(series, section, course, cycles[i],"A");
+                   adaycounter=aday.getTotalcount(course,series,section,Rolls.get(0),cycles[i],"A");
+                   counter++;
+                   progressBar.setProgress(counter);
+                   publishProgress(String.valueOf(counter));
+                   stateB = bday.getState(series, section, course, cycles[i],"B");
+                   bdaycounter=bday.getTotalcount(course,series,section,Rolls.get(0),cycles[i],"B");
+                   counter++;
+                   progressBar.setProgress(counter);
+                   publishProgress(String.valueOf(counter));
+                   stateC = cday.getState(series, section, course, cycles[i],"C");
+                   cdaycounter=cday.getTotalcount(course,series,section,Rolls.get(0),cycles[i],"C");
+                   counter++;
+                   progressBar.setProgress(counter);
+                   publishProgress(String.valueOf(counter));
+                   stateD = dday.getState(series, section, course, cycles[i],"D");
+                   ddaycounter=dday.getTotalcount(course,series,section,Rolls.get(0),cycles[i],"D");
+                   counter++;
+                   progressBar.setProgress(counter);
+                   publishProgress(String.valueOf(counter));
+                   stateE = eday.getState(series, section, course, cycles[i],"E");
+                   edaycounter=eday.getTotalcount(course,series,section,Rolls.get(0),cycles[i],"E");
+                   counter++;
+                   progressBar.setProgress(counter);
+                   publishProgress(String.valueOf(counter));
 
-                    }
-                    if (stateB.get(j).equals("true")) {
-                        c2 = 1;
-                        present[j] = present[j] + 1;
+                   for (int j = 0; j < numberofStudents; j++) {
+                       if (stateA.get(j).equals("true") && adaycounter.equals("1")) {
+                           c1 = 1;
+                           present[j] = present[j] + 1;
 
-                    }
-                    if (stateC.get(j).equals("true")) {
-                        c3 = 1;
-                        present[j] = present[j] + 1;
-                    }
-                    if (stateD.get(j).equals("true")) {
-                        c4 = 1;
-                        present[j] = present[j] + 1;
-                    }
-                    if (stateE.get(j).equals("true")) {
-                        c5 = 1;
-                        present[j] = present[j] + 1;
-                    }
+                       }
+                       if (stateB.get(j).equals("true") && bdaycounter.equals("1")) {
+                           c2 = 1;
+                           present[j] = present[j] + 1;
 
-                    counter++;
-                    progressBar.setProgress(counter);
-                    publishProgress(String.valueOf(counter));
+                       }
+                       if (stateC.get(j).equals("true") && cdaycounter.equals("1")) {
+                           c3 = 1;
+                           present[j] = present[j] + 1;
+                       }
+                       if (stateD.get(j).equals("true") && ddaycounter.equals("1")) {
+                           c4 = 1;
+                           present[j] = present[j] + 1;
+                       }
+                       if (stateE.get(j).equals("true") && edaycounter.equals("1")) {
+                           c5 = 1;
+                           present[j] = present[j] + 1;
+                       }
 
-                }
+                       counter++;
+                       progressBar.setProgress(counter);
+                       publishProgress(String.valueOf(counter));
 
-                TotalPresence = TotalPresence + c1 + c2 + c3 + c4 + c5;
+                   }
 
-            }
+                   TotalPresence = TotalPresence + c1 + c2 + c3 + c4 + c5;
+               }
+
 
             for (int i = 0; i < numberofStudents; i++) {
                 Presence = present[i];
@@ -229,6 +235,7 @@ public class Result extends Fragment implements View.OnClickListener {
 
         @Override
         protected void onPostExecute(String s) {
+            Toast.makeText(context, String.valueOf(present[0]), Toast.LENGTH_SHORT).show();
             dialog.dismiss();
 
             print();

@@ -23,22 +23,26 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
+
+        <!--
         <activity
-            android:name="spark.loop.classattendance.LogReg"
-            android:windowSoftInputMode="adjustPan" >
+            android:name=".LogReg"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
+
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        -->
         <activity
             android:name="spark.loop.classattendance.MainActivity"
             android:windowSoftInputMode="adjustPan" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 

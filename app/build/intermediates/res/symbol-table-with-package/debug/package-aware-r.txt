@@ -1107,6 +1107,7 @@ id action_mode_close_button
 id action_text
 id actions
 id activity_chooser_view_content
+id adaycheckbox
 id adaylist
 id add
 id addcourse
@@ -1117,8 +1118,8 @@ id always
 id async
 id attendancemarks
 id auto
-id backup
 id barrier
+id bdaycheckbox
 id bdaylist
 id beginning
 id blocking
@@ -1129,6 +1130,7 @@ id cancel
 id cancelNewStudent
 id cancel_action
 id canceldel
+id cdaycheckbox
 id cdaylist
 id center
 id center_horizontal
@@ -1149,6 +1151,7 @@ id coordinator
 id cou
 id courseid
 id courselist
+id courselistdialog
 id coursespinner
 id create
 id cs
@@ -1157,21 +1160,25 @@ id customPanel
 id cyclegrid
 id cycleid
 id cycleshow
+id ddaycheckbox
 id ddaylist
 id decor_content_parent
 id default_activity_button
 id deleteOk
 id deletecourse
+id des
 id design_bottom_sheet
 id design_menu_item_action_area
 id design_menu_item_action_area_stub
 id design_menu_item_text
 id design_navigation_view
+id designationSpinner
 id dimensions
 id direct
 id disableHome
 id display
 id drawerlayout
+id edaycheckbox
 id edaylist
 id edit_query
 id edittextpassword
@@ -1233,6 +1240,7 @@ id loaderlist
 id loka
 id lokas
 id maingrid
+id maingriddialog
 id mainlayout
 id masked
 id media_actions
@@ -1260,13 +1268,19 @@ id parent
 id parentPanel
 id parent_matrix
 id pas
+id pats
+id pcours
 id percent
+id pfrist
 id pin
 id pro
 id progress_circular
 id progress_horizontal
 id progressbar1
 id progresslayout
+id psec
+id pser
+id ptost
 id radio
 id regCancel
 id regConfirmPassword
@@ -1280,6 +1294,7 @@ id removestudent
 id resco
 id resse
 id ressec
+id restoreButton
 id resultabsence
 id resultattendance
 id resultlist
@@ -1299,6 +1314,7 @@ id rt12
 id save_image_matrix
 id save_non_transition_alpha
 id save_scale_type
+id scd
 id screen
 id scroll
 id scrollIndicatorDown
@@ -1351,6 +1367,7 @@ id status_bar_latest_event_content
 id stretch
 id submenuarrow
 id submit_area
+id syncButton
 id synctime
 id tabMode
 id tag_transition_group
@@ -1378,6 +1395,7 @@ id tit
 id title
 id titleDividerNoCustom
 id title_template
+id titsew
 id top
 id topPanel
 id totalclass
@@ -1483,6 +1501,7 @@ layout design_navigation_item_subheader
 layout design_navigation_menu
 layout design_navigation_menu_item
 layout design_text_input_password_icon
+layout dialoggrid
 layout eday
 layout filebrowser
 layout filedirrow

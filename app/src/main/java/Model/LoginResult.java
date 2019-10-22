@@ -9,6 +9,8 @@ public class LoginResult {
     String Number;
     @Expose
     String Password;
+    @Expose
+    String Designation;
 
     public String getName() {
         return Name;
@@ -32,5 +34,13 @@ public class LoginResult {
 
     public void setPassword(String password) {
         Password = password;
+    }
+
+    public String getDesignation() {
+        return Designation;
+    }
+
+    public void setDesignation(String designation) {
+        Designation = designation;
     }
 }

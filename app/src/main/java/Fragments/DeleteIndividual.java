@@ -73,7 +73,7 @@ public class DeleteIndividual extends Fragment implements View.OnClickListener {
 
 
     public void print() {
-        object = aday.getRoll(series, section, course, "1st");
+        object = aday.getRoll(series, section, course, "1st","A");
 
         for (int i = 0; i < object.size(); i++) {
             state.add(new Stateholder(false));

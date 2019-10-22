@@ -28,10 +28,14 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.JsonArray;
+
+import org.json.JSONObject;
+
 import java.util.ArrayList;
-import java.util.List;
 
 import Adapters.CustomGrid;
+import Adapters.DialogGrid;
 import Databases.DatabaseAday;
 import Databases.DatabaseBday;
 import Databases.DatabaseCday;
@@ -78,6 +82,13 @@ public class MainActivity extends AppCompatActivity implements Backtrack, Revers
     SharedPreference preference;
     Dialog dialog;
     TextView Updateprogress;
+    DatabaseAday aday;
+    DatabaseBday bday;
+    DatabaseCday cday;
+    DatabaseDday dday;
+    DatabaseEday eday;
+    TextView SyncTime;
+    String[] cycles = {"1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "11th", "12th", "13th", "14th"};
 
     public static void hideKeyboard(Activity activity) {
         InputMethodManager imm = (InputMethodManager) activity.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -93,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements Backtrack, Revers
         super.onCreate(savedInstanceState);
         information = new Information(this);
         preference = new SharedPreference(this);
+        preference.saveData("Zaman","01745914445","1234","gs");
         setContentView(R.layout.activity_main);
         drawerLayout = findViewById(R.id.drawerlayout);
         object = new ArrayList<>();
@@ -106,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements Backtrack, Revers
     }
 
     public void setGridView() {
-        object = information.getInformation();
+        object = information.getInformation(preference.getNumber());
         gridView = findViewById(R.id.maingrid);
         customGrid = new CustomGrid(this, object);
         gridView.setAdapter(customGrid);
@@ -123,21 +135,32 @@ public class MainActivity extends AppCompatActivity implements Backtrack, Revers
         navigationView = findViewById(R.id.navigatonview);
         final SharedPreference preference = new SharedPreference(this);
         View headerlayout = navigationView.getHeaderView(0);
-        Button Backup = headerlayout.findViewById(R.id.backup);
+        Button Backup = headerlayout.findViewById(R.id.syncButton);
         TextView Name = headerlayout.findViewById(R.id.name);
-        TextView SyncTime = headerlayout.findViewById(R.id.synctime);
+        SyncTime= headerlayout.findViewById(R.id.synctime);
+        Button Restore = headerlayout.findViewById(R.id.restoreButton);
         Name.setText("Welcome\n" + preference.getUserName());
-        SyncTime.setText("Last Sync\n" + preference.getLastSyncTime());
+        SyncTime.setText("Last Sync\n"+preference.getLastSyncTime());
 
         Backup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (information.noData()) {
-                    Restore(preference.getNumber());
+                if (information.hasData()) {
+                   // BackSync backSync = new BackSync();
+                    //backSync.execute();
+                } else {
+                    Toast.makeText(MainActivity.this, "Nothing to sync!!!", Toast.LENGTH_SHORT).show();
                 }
 
 
+            }
+        });
+
+        Restore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+             //   Restore(preference.getNumber());
             }
         });
 
@@ -233,7 +256,7 @@ public class MainActivity extends AppCompatActivity implements Backtrack, Revers
 
     public void removeStudent() {
         ReverseCaller reverseCaller = this;
-        RemoveStudent removeStudent = new RemoveStudent(information, reverseCaller);
+        RemoveStudent removeStudent = new RemoveStudent(information, this,reverseCaller);
         fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.rootLayout, removeStudent);
@@ -416,16 +439,16 @@ public class MainActivity extends AppCompatActivity implements Backtrack, Revers
 
 
         ApiService service = ApiClient.getClient().create(ApiService.class);
-        Call<List<Restore>> call = service.restoreData(number);
-        call.enqueue(new Callback<List<Restore>>() {
+        Call<ArrayList<Restore>> call = service.restoreData(number);
+        call.enqueue(new Callback<ArrayList<Restore>>() {
             @Override
-            public void onResponse(Call<List<Restore>> call, Response<List<Restore>> response) {
-
+            public void onResponse(Call<ArrayList<Restore>> call, Response<ArrayList<Restore>> response) {
+                BackupDialog(response.body());
             }
 
             @Override
-            public void onFailure(Call<List<Restore>> call, Throwable t) {
-
+            public void onFailure(Call<ArrayList<Restore>> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Check Internet Connection!!!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -433,18 +456,129 @@ public class MainActivity extends AppCompatActivity implements Backtrack, Revers
     }
 
 
+    public void BackupDialog(final ArrayList<Restore> ob) {
+        final Dialog mydialog = new Dialog(this);
+        mydialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        mydialog.setContentView(R.layout.dialoggrid);
+        mydialog.show();
+        GridView gridView1 = mydialog.findViewById(R.id.maingriddialog);
+        DialogGrid dialogGrid = new DialogGrid(this, ob);
+        gridView1.setAdapter(dialogGrid);
+
+        gridView1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String s1, s2, s3, s4, s5, s6, s7;
+                s1 = ob.get(position).getSeries();
+                s2 = ob.get(position).getSection();
+                s3 = ob.get(position).getCourse();
+                s4 = ob.get(position).getFirstRoll();
+                s5 = ob.get(position).getTotalStudents();
+                s6 = ob.get(position).getAttendanceMarks();
+                s7 = ob.get(position).getNumber();
+             //   information.insertValues(s1, s2, s3, s4, s5, s6,s7);
+                mydialog.dismiss();
+                setGridView();
+                callWeb(s3 + s1 + s2 + s7);
+
+            }
+        });
 
 
-    public void progDialog() {
-        dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setCancelable(false);
-        dialog.setContentView(R.layout.progressdialog);
-        Updateprogress = dialog.findViewById(R.id.updateprogress);
-        dialog.show();
     }
 
+    public void callWeb(String Id) {
+        Toast.makeText(this, Id, Toast.LENGTH_SHORT).show();
 
+    }
+
+    public void send(JsonArray Id) {
+
+        ApiService service = ApiClient.getClient().create(ApiService.class);
+        Call<String> call = service.sendToweb(Id);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+              if (response.isSuccessful()){
+                  Toast.makeText(MainActivity.this, response.body(), Toast.LENGTH_LONG).show();
+                  preference.saveSynctime(response.body());
+                  SyncTime.setText("Last Sync\n"+preference.getLastSyncTime());
+              }
+              else
+              {
+                  Toast.makeText(MainActivity.this, "failure", Toast.LENGTH_SHORT).show();
+              }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
+
+
+
+    }
+
+    public void SendInformation(JsonArray array){
+
+        ApiService service = ApiClient.getClient().create(ApiService.class);
+        Call<String>call=service.InformationSend(array);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                Toast.makeText(MainActivity.this, response.body(), Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+
+            }
+        });
+
+
+    }
+
+    public class BackSync extends AsyncTask<String, String, String> {
+        Information informationob;
+        JsonArray All,inform;
+
+        @Override
+        protected void onPreExecute() {
+            aday = new DatabaseAday(MainActivity.this);
+            bday = new DatabaseBday(MainActivity.this);
+            cday = new DatabaseCday(MainActivity.this);
+            dday = new DatabaseDday(MainActivity.this);
+            eday = new DatabaseEday(MainActivity.this);
+            informationob = new Information(MainActivity.this);
+            All=new JsonArray();
+            inform=new JsonArray();
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+
+            All.add(aday.getAllId());
+            All.add(aday.getAllRoll());
+            All.add(aday.getAllCycle());
+            All.add(aday.getAllState());
+            All.add(bday.getAllState());
+            All.add(cday.getAllState());
+            All.add(dday.getAllState());
+            All.add(eday.getAllState());
+            inform=informationob.getinfo();
+            SendInformation(inform);
+            send(All);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+
+        }
+    }
 
 
 }

@@ -11,12 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import Adapters.CustomListA;
 import Adapters.CustomListE;
 import Databases.DatabaseEday;
+import Databases.Information;
+import Databases.SharedPreference;
 import Model.RollState;
 import spark.loop.classattendance.R;
 
@@ -30,7 +33,11 @@ public class Eday extends Fragment {
     String series,section,course,cycle;
     ArrayList<String> object;
     CustomListE adapter;
-    DatabaseEday eday;
+    DatabaseEday day;
+    Information information;
+    SharedPreference preference;
+    String condition="";
+
     public Eday(Context context, String series, String section, String course, String cycle) {
         this.context=context;
         this.series=series;
@@ -38,7 +45,10 @@ public class Eday extends Fragment {
         this.course=course;
         this.cycle=cycle;
         object=new ArrayList<>();
-        eday=new DatabaseEday(context);
+        day=new DatabaseEday(context);
+        preference=new SharedPreference(context);
+        information=new Information(context);
+        condition=information.getEday(course,series,section,preference.getNumber());
 
 
     }
@@ -48,13 +58,16 @@ public class Eday extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.eday, null, false);
         listView=view.findViewById(R.id.edaylist);
-        print();
+        if(condition.equals("true")){
+            print();
+            day.update(course,series,section,cycle,"E");
+        }
         return view;
     }
 
     public void print(){
-        object=eday.getRoll(series,section,course,cycle);
-        adapter=new CustomListE(getActivity(),object,eday.getState(series,section,course,cycle),eday,series,section,course,cycle);
+        object=day.getRoll(series,section,course,cycle,"E");
+        adapter=new CustomListE(getActivity(),object,day.getState(series,section,course,cycle,"E"),day,series,section,course,cycle);
         listView.setAdapter(adapter);
 
     }

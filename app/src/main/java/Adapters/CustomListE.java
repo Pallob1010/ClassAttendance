@@ -25,12 +25,12 @@ public class CustomListE extends ArrayAdapter<String> {
     ArrayList<String> State;
 
     Context mContext;
-    DatabaseEday eday;
+    DatabaseEday databaseAday;
     String series, section, course, cycle;
 
     public CustomListE(Context mContext, ArrayList<String> object,ArrayList<String>State, DatabaseEday eday, String series, String section, String course, String cycle) {
         super(mContext, R.layout.singlerecycler, object);
-        this.eday=eday;
+        this.databaseAday=eday;
         this.object = object;
         this.series = series;
         this.section = section;
@@ -57,26 +57,30 @@ public class CustomListE extends ArrayAdapter<String> {
         } catch (Exception e) {
         }
 
-        if (S.equals("true")) {
+        if (S.equals("false")) {
 
             checkBox1.setChecked(true);
         } else {
             checkBox1.setChecked(false);
         }
+
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (State.get(position).equals("false")) {
+                if (State.get(position).equals("true")) {
                     checkBox1.setChecked(true);
-                    eday.UpdateStateEday(course, series, section, cycle, "E", object.get(position), "true");
+                    databaseAday.updateState(course, series, section, cycle, "A", object.get(position), "false");
                     StateUpdate();
                 } else {
                     checkBox1.setChecked(false);
-                    eday.UpdateStateEday(course, series, section, cycle, "E", object.get(position), "false");
+                    databaseAday.updateState(course, series, section, cycle, "A", object.get(position), "true");
                     StateUpdate();
                 }
+
+
             }
         });
+
 
 
 
@@ -85,6 +89,6 @@ public class CustomListE extends ArrayAdapter<String> {
 
 
     public void StateUpdate() {
-        State=eday.getState(series,section,course,cycle);
+        State=databaseAday.getState(series,section,course,cycle,"E");
     }
 }

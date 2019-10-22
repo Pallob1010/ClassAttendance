@@ -17,7 +17,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:background="@drawable/ic_perm_contact_calendar_black_24dp"
-        app:layout_constraintBottom_toTopOf="@+id/backup"
         app:layout_constraintEnd_toStartOf="@+id/name"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -32,13 +31,13 @@
         android:paddingLeft="10dp"
         android:paddingTop="5dp"
         android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/synctime"
+        app:layout_constraintBottom_toTopOf="@+id/restoreButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/icon"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/backup"
+        android:id="@+id/syncButton"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_marginStart="8dp"
@@ -53,21 +52,27 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/icon" />
 
+    <Button
+        android:id="@+id/restoreButton"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Restore"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/synctime"
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        app:layout_constraintVertical_bias="0.851" />
+
     <TextView
+        android:gravity="center"
         android:id="@+id/synctime"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:paddingLeft="10dp"
-        android:paddingTop="5dp"
-        android:textColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/backup"
+        app:layout_constraintEnd_toStartOf="@+id/restoreButton"
+        app:layout_constraintStart_toEndOf="@+id/syncButton"
         app:layout_constraintTop_toBottomOf="@+id/name" />
 </android.support.constraint.ConstraintLayout>

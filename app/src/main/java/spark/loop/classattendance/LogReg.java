@@ -9,8 +9,12 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
+import android.widget.Adapter;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,12 +29,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LogReg extends AppCompatActivity implements View.OnClickListener {
+public class LogReg extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     SharedPreference preference;
     Dialog dialog;
     EditText regName, regNumber, regPass, regConPass, logNumber, logPass;
-
+    Spinner spinner;
+    ArrayAdapter<String> adapter;
+    String designation[]={"Lecturer","Assistant Professor","Associate Professor","Professor"};
+    String teacherdesignation="Lecturer";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +64,12 @@ public class LogReg extends AppCompatActivity implements View.OnClickListener {
         regNumber = dialog.findViewById(R.id.regNumber);
         regPass = dialog.findViewById(R.id.regPass);
         regConPass = dialog.findViewById(R.id.regConfirmPassword);
+        spinner=dialog.findViewById(R.id.designationSpinner);
+
+        adapter=new ArrayAdapter<>(LogReg.this, android.R.layout.simple_spinner_item, designation);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
         Button reg = dialog.findViewById(R.id.regSubmit);
         reg.setOnClickListener(this);
         Button regcancel = dialog.findViewById(R.id.regCancel);
@@ -101,7 +114,7 @@ public class LogReg extends AppCompatActivity implements View.OnClickListener {
                         if (!s3.isEmpty()) {
                             if (!s4.isEmpty()) {
                                 if (s3.equals(s4)) {
-                                    register(s1, s2, s3);
+                                    register(s1, s2, s3,teacherdesignation);
                                 } else {
                                     Toast.makeText(this, "Password doesn't match", Toast.LENGTH_SHORT).show();
                                 }
@@ -129,10 +142,10 @@ public class LogReg extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-    public void register(String name, String number, String password) {
+    public void register(String name, String number, String password,String desg) {
 
         ApiService service = ApiClient.getClient().create(ApiService.class);
-        Call<RegistrationResult> call = service.postdata(name, number, password);
+        Call<RegistrationResult> call = service.postdata(name, number, password,desg);
         call.enqueue(new Callback<RegistrationResult>() {
             @Override
             public void onResponse(Call<RegistrationResult> call, Response<RegistrationResult> response) {
@@ -195,9 +208,10 @@ public class LogReg extends AppCompatActivity implements View.OnClickListener {
                 if(response.isSuccessful()){
                     String name=response.body().get(0).getName();
                     String pass=response.body().get(0).getPassword();
+                    String desg=response.body().get(0).getDesignation();
 
                     if(password.equals(pass)){
-                        preference.saveData(name,number,password);
+                        preference.saveData(name,number,password,desg);
                         startActivity(new Intent(LogReg.this,MainActivity.class));
                         finish();
 
@@ -222,4 +236,14 @@ public class LogReg extends AppCompatActivity implements View.OnClickListener {
     }
 
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        teacherdesignation=designation[position];
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }

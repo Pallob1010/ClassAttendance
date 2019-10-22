@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -22,6 +23,7 @@ import Databases.DatabaseCday;
 import Databases.DatabaseDday;
 import Databases.DatabaseEday;
 import Databases.Information;
+import Databases.SharedPreference;
 import Interfaces.Backtrack;
 import spark.loop.classattendance.R;
 
@@ -35,18 +37,20 @@ public class AddCourse extends Fragment implements View.OnClickListener {
     Information information;
     EditText Ser, Sec, Cou, Fis, Tot, Att;
     DatabaseCreator databaseCreator;
-    LinearLayout layout1;
-    ConstraintLayout layout2;
+    ConstraintLayout layout2,layout1;
     ProgressBar progressBar;
     TextView Displaypercentage;
     int count = 0;
+    SharedPreference preference;
+    String ad="",bd="",cd="",dd="",ed="";
     String[] cycles = {"1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "11th", "12th", "13th", "14th"};
-
+    CheckBox adaybox,bdaybox,cdaybox,ddaybox,edaybox;
     public AddCourse(Backtrack backtrack, Context context, Information information) {
         this.backtrack = backtrack;
         this.context = context;
         this.information = information;
         databaseCreator = new DatabaseCreator();
+        preference = new SharedPreference(context);
 
     }
 
@@ -69,7 +73,11 @@ public class AddCourse extends Fragment implements View.OnClickListener {
         Fis = view.findViewById(R.id.firstrollid);
         Tot = view.findViewById(R.id.totalstudentsid);
         Att = view.findViewById(R.id.attendancemarks);
-
+        adaybox=view.findViewById(R.id.adaycheckbox);
+        bdaybox=view.findViewById(R.id.bdaycheckbox);
+        cdaybox=view.findViewById(R.id.cdaycheckbox);
+        ddaybox=view.findViewById(R.id.ddaycheckbox);
+        edaybox=view.findViewById(R.id.edaycheckbox);
 
         return view;
     }
@@ -82,14 +90,12 @@ public class AddCourse extends Fragment implements View.OnClickListener {
 
             case R.id.create:
                 if (inputfield()) {
-                    if (information.insertValues(Series, Section.toUpperCase(), Course.toUpperCase(), FirstRoll, TotalStudents, Attendance)) {
+                    if (information.insertValues(Series, Section.toUpperCase(), Course.toUpperCase(), FirstRoll, TotalStudents, Attendance,preference.getNumber(),ad,bd,cd,dd,ed)) {
                         databaseCreator.execute();
                     } else {
                         Toast.makeText(context, "Unsuccessfull", Toast.LENGTH_SHORT).show();
                     }
 
-                } else {
-                    Toast.makeText(context, "Fill All The Field", Toast.LENGTH_SHORT).show();
                 }
 
                 break;
@@ -111,13 +117,68 @@ public class AddCourse extends Fragment implements View.OnClickListener {
         TotalStudents = Tot.getText().toString().trim();
         Attendance = Att.getText().toString().trim();
 
-        if (Series.isEmpty() | Section.isEmpty() | Course.isEmpty() | FirstRoll.isEmpty() | TotalStudents.isEmpty() | Attendance.isEmpty()) {
-            return false;
-        } else {
+        if (!Series.isEmpty() ){
+            if(! Section.isEmpty()){
 
-            return true;
+                if(! FirstRoll.isEmpty()){
+
+                    if(! TotalStudents.isEmpty()){
+
+                        if(! Attendance.isEmpty()){
+
+                            if(!adaybox.isChecked() & !bdaybox.isChecked() & !cdaybox.isChecked() & !ddaybox.isChecked() & !edaybox.isChecked()){
+
+                                Toast.makeText(context, "Select Atleast a Day", Toast.LENGTH_SHORT).show();
+                                return false;
+
+                            }else {
+                                if (adaybox.isChecked()){
+                                    ad="true";
+                                }
+                                if (bdaybox.isChecked()){
+                                    bd="true";
+                                }
+                                if (cdaybox.isChecked()){
+                                    cd="true";
+                                }
+                                if (ddaybox.isChecked()){
+                                    dd="true";
+                                }
+                                if (edaybox.isChecked()){
+                                    ed="true";
+                                }
+                                return true;
+                            }
+
+
+                        }else {
+                            Toast.makeText(context, "Input Attendance Marks", Toast.LENGTH_SHORT).show();
+                            return false;
+                        }
+
+                    }else {
+                        Toast.makeText(context, "Input TotalStudents", Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+
+                }else {
+                    Toast.makeText(context, "Input FirstRoll", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+
+
+            }else {
+                Toast.makeText(context, "Input Section", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+
+        }else {
+            Toast.makeText(context, "Input Series", Toast.LENGTH_SHORT).show();
+            return false;
         }
     }
+
 
     public class DatabaseCreator extends AsyncTask<String, String, String> {
 
@@ -144,19 +205,21 @@ public class AddCourse extends Fragment implements View.OnClickListener {
 
         @Override
         protected String doInBackground(String... strings) {
+
+
             for (int i = 0; i < 14; i++) {
 
                 for (int j = firstroll; j < lastroll; j++) {
 
-                    count += aday.insertRollStateAday(Course.toUpperCase(), Series, Section.toUpperCase(), cycles[i], "A", String.valueOf(j), "false");
+                    count += aday.inserts(Course.toUpperCase(), Series, Section.toUpperCase(), cycles[i], "A", String.valueOf(j),ad,0);
                     publishProgress(String.valueOf(count));
-                    count += bday.insertRollStateBday(Course.toUpperCase(), Series, Section.toUpperCase(), cycles[i], "B", String.valueOf(j), "false");
+                    count += bday.inserts(Course.toUpperCase(), Series, Section.toUpperCase(), cycles[i], "B", String.valueOf(j),bd,0);
                     publishProgress(String.valueOf(count));
-                    count += cday.insertRollStateCDay(Course.toUpperCase(), Series, Section.toUpperCase(), cycles[i], "C", String.valueOf(j), "false");
+                    count += cday.inserts(Course.toUpperCase(), Series, Section.toUpperCase(), cycles[i], "C", String.valueOf(j),cd,0);
                     publishProgress(String.valueOf(count));
-                    count += dday.insertRollStateDDay(Course.toUpperCase(), Series, Section.toUpperCase(), cycles[i], "D", String.valueOf(j), "false");
+                    count += dday.inserts(Course.toUpperCase(), Series, Section.toUpperCase(), cycles[i], "D", String.valueOf(j),dd,0);
                     publishProgress(String.valueOf(count));
-                    count += eday.insertRollStateEDay(Course.toUpperCase(), Series, Section.toUpperCase(), cycles[i], "E", String.valueOf(j), "false");
+                    count += eday.inserts(Course.toUpperCase(), Series, Section.toUpperCase(), cycles[i], "E", String.valueOf(j),ed,0);
                     publishProgress(String.valueOf(count));
 
 
@@ -168,9 +231,9 @@ public class AddCourse extends Fragment implements View.OnClickListener {
 
         @Override
         protected void onProgressUpdate(String... values) {
-            int x=Integer.parseInt(values[0]);
+            int x = Integer.parseInt(values[0]);
             progressBar.setProgress(x);
-            Displaypercentage.setText(String.valueOf((x*100)/4200)+" %");
+            Displaypercentage.setText(String.valueOf((x * 100) / 4200) + " %");
         }
 
 

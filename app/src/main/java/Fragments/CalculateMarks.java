@@ -22,6 +22,7 @@ import Databases.DatabaseCday;
 import Databases.DatabaseDday;
 import Databases.DatabaseEday;
 import Databases.Information;
+import Databases.SharedPreference;
 import Interfaces.Backtrack;
 import Model.CourseDetails;
 import Model.Stateholder;
@@ -44,7 +45,7 @@ public class CalculateMarks extends Fragment implements View.OnClickListener {
     DatabaseCday cday;
     DatabaseDday dday;
     DatabaseEday eday;
-
+    SharedPreference preference;
     public CalculateMarks(Information information, Backtrack backtrack, Context context) {
         this.information = information;
         state = new ArrayList<>();
@@ -55,6 +56,7 @@ public class CalculateMarks extends Fragment implements View.OnClickListener {
         cday = new DatabaseCday(context);
         dday = new DatabaseDday(context);
         eday = new DatabaseEday(context);
+        preference=new SharedPreference(context);
     }
 
     @Override
@@ -74,7 +76,7 @@ public class CalculateMarks extends Fragment implements View.OnClickListener {
 
     public void print() {
 
-        object = information.getInformation();
+        object = information.getInformation(preference.getNumber());
         for (int i = 0; i < object.size(); i++) {
             state.add(new Stateholder(false));
         }

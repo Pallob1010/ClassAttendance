@@ -35,9 +35,13 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import Adapters.FileAdapter;
+import Databases.SharedPreference;
 import Interfaces.ReverseCaller;
 import Model.ResultHolder;
 import spark.loop.classattendance.R;
@@ -56,7 +60,7 @@ public class Filebrowser extends Fragment implements View.OnClickListener {
     Button Home, NewFolder, FileBack, Save, Cancel;
     EditText editText;
     ReverseCaller caller;
-
+    SharedPreference preference;
 
     public Filebrowser(Context context, String series, String section, String course, int totalclass, ArrayList<ResultHolder> object, ReverseCaller caller) {
 
@@ -70,6 +74,7 @@ public class Filebrowser extends Fragment implements View.OnClickListener {
         initialPath = Environment.getExternalStorageDirectory().getAbsolutePath();
         file = new File(initialPath);
         fileobject = new ArrayList<>();
+        preference=new SharedPreference(context);
     }
 
     @Nullable
@@ -330,11 +335,37 @@ public class Filebrowser extends Fragment implements View.OnClickListener {
             PdfPTable header=new PdfPTable(4);
             header.setWidths(new float[]{1,1,1,1});
 
+            PdfPTable footer=new PdfPTable(3);
+            footer.setWidths(new float[]{1,1,1});
+
             university=new Paragraph("Rajshahi University Of Engineering & Technology");
             university.setAlignment(Paragraph.ALIGN_CENTER);
 
             department=new Paragraph("Department of Computer Science & Engineering");
             department.setAlignment(Paragraph.ALIGN_CENTER);
+
+            String myst="    ";
+            for (int m=0;m<9;m++){
+                if(m==3){
+                    myst=preference.getUserName()+"\n"+preference.getUserDesignation();
+                }else if (m==5){
+                    Date date= Calendar.getInstance().getTime();
+                    SimpleDateFormat format = new SimpleDateFormat("dd-MMM-yyyy");
+                    myst=format.format(date);
+
+                }else if(m==6){
+                    myst="....................";
+                }
+                cell=new PdfPCell(new Phrase(myst));
+                cell.setVerticalAlignment(Element.ALIGN_CENTER);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setPadding(15);
+                cell.setBorder(Rectangle.NO_BORDER);
+                footer.addCell(cell);
+                myst="     ";
+
+            }
+
 
 
 
@@ -389,11 +420,11 @@ public class Filebrowser extends Fragment implements View.OnClickListener {
             }
 
             document.open();
-
             document.add(university);
             document.add(department);
             document.add(header);
             document.add(table);
+            document.add(footer);
 
         } catch (DocumentException de) {
 

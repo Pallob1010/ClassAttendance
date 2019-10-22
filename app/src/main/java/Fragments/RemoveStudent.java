@@ -1,6 +1,7 @@
 package Fragments;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 
 import Adapters.RemoveAdapter;
 import Databases.Information;
+import Databases.SharedPreference;
 import Interfaces.Backtrack;
 import Interfaces.ReverseCaller;
 import Model.CourseDetails;
@@ -30,11 +32,12 @@ public class RemoveStudent extends Fragment implements View.OnClickListener {
     ArrayList<Stateholder> state;
     ReverseCaller reverseCaller;
     ArrayList<CourseDetails> object;
-
-    public RemoveStudent(Information information, ReverseCaller reverseCaller) {
+    SharedPreference preference;
+    public RemoveStudent(Information information, Context context, ReverseCaller reverseCaller) {
         this.information = information;
         this.reverseCaller=reverseCaller;
         state=new ArrayList<>();
+        preference=new SharedPreference(context);
     }
 
     @Override
@@ -53,7 +56,7 @@ public class RemoveStudent extends Fragment implements View.OnClickListener {
 
 
     public void print() {
-        object = information.getInformation();
+        object = information.getInformation(preference.getNumber());
         for (int i = 0; i < object.size(); i++) {
             state.add(new Stateholder(false));
         }

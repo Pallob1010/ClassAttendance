@@ -10,11 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import Adapters.CustomListA;
 import Databases.DatabaseAday;
+import Databases.Information;
+import Databases.SharedPreference;
 import Model.RollState;
 import spark.loop.classattendance.R;
 
@@ -27,7 +30,11 @@ public class Aday extends Fragment {
     String series,section,course,cycle;
     ArrayList<String>object;
     CustomListA adapter;
-    DatabaseAday aday;
+    DatabaseAday day;
+    Information information;
+    SharedPreference preference;
+    String condition="";
+
     public Aday(Context context, String series, String section, String course, String cycle) {
         this.context=context;
         this.series=series;
@@ -35,7 +42,11 @@ public class Aday extends Fragment {
         this.course=course;
         this.cycle=cycle;
         object=new ArrayList<>();
-        aday=new DatabaseAday(context);
+        day=new DatabaseAday(context);
+        preference=new SharedPreference(context);
+        information=new Information(context);
+        condition=information.getAday(course,series,section,preference.getNumber());
+
 
 
     }
@@ -45,13 +56,18 @@ public class Aday extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.aday, null, false);
         listView=view.findViewById(R.id.adaylist);
-        print();
+        if(condition.equals("true")){
+            print();
+            day.update(course,series,section,cycle,"A");
+
+        }
+
         return view;
     }
 
     public void print(){
-        object=aday.getRoll(series,section,course,cycle);
-        adapter=new CustomListA(context,object,aday.getState(series,section,course,cycle),aday,series,section,course,cycle);
+        object=day.getRoll(series,section,course,cycle,"A");
+        adapter=new CustomListA(context,object,day.getState(series,section,course,cycle,"A"),day,series,section,course,cycle);
         listView.setAdapter(adapter);
 
 

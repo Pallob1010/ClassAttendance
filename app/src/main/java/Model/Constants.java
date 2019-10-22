@@ -7,5 +7,6 @@ public class Constants {
     public static final String PASSWORD="password12345";
     public static final String NAME="save_Name";
     public static final String SYNCTIME="sync_time";
+    public static final String DESIGNATION="desg12345";
 
 }

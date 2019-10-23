@@ -62,7 +62,6 @@ public class AddCourse extends Fragment implements View.OnClickListener {
         layout2 = view.findViewById(R.id.progresslayout);
         progressBar = view.findViewById(R.id.progressbar1);
         Displaypercentage = view.findViewById(R.id.resultpercentage);
-        progressBar.setMax(4200);
         Ok = view.findViewById(R.id.create);
         Ok.setOnClickListener(this);
         Cancel = view.findViewById(R.id.cancel);
@@ -200,6 +199,7 @@ public class AddCourse extends Fragment implements View.OnClickListener {
             cday = new DatabaseCday(context);
             dday = new DatabaseDday(context);
             eday = new DatabaseEday(context);
+            progressBar.setMax(70*Integer.parseInt(TotalStudents));
 
         }
 

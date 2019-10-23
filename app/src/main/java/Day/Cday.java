@@ -45,11 +45,6 @@ public class Cday extends Fragment {
         this.cycle=cycle;
         object=new ArrayList<>();
         day=new DatabaseCday(context);
-        preference=new SharedPreference(context);
-        information=new Information(context);
-        condition=information.getAday(course,series,section,preference.getNumber());
-
-
 
     }
 
@@ -58,17 +53,14 @@ public class Cday extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.cday, null, false);
         listView=view.findViewById(R.id.cdaylist);
-        if(condition.equals("true")){
-            print();
-            day.update(course,series,section,cycle,"C");
-        }
-
+        day.update(course,series,section,cycle,"C");
+        print();
         return view;
     }
 
     public void print(){
         object=day.getRoll(series,section,course,cycle,"C");
-        adapter=new CustomListC(context,object,day.getState(series,section,course,cycle,"C"),day,series,section,course,cycle);
+        adapter=new CustomListC(context,object,day.getState(series,section,course,cycle,"C"),series,section,course,cycle);
         listView.setAdapter(adapter);
 
 

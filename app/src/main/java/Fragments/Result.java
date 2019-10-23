@@ -134,7 +134,7 @@ public class Result extends Fragment implements View.OnClickListener {
             Rolls = aday.getRoll(series, section, course, "1st","A");
             numberofStudents = Rolls.size();
             present = new int[numberofStudents +1];
-            RunningTime = numberofStudents*6;
+            RunningTime = 15*numberofStudents+70;
             progressBar.setMax(RunningTime);
         }
 
@@ -235,7 +235,6 @@ public class Result extends Fragment implements View.OnClickListener {
 
         @Override
         protected void onPostExecute(String s) {
-            Toast.makeText(context, String.valueOf(present[0]), Toast.LENGTH_SHORT).show();
             dialog.dismiss();
 
             print();

@@ -24,27 +24,27 @@ public class CustomListE extends ArrayAdapter<String> {
     ArrayList<String> object;
     ArrayList<String> State;
 
-    Context mContext;
-    DatabaseEday databaseAday;
+    Context context;
+    DatabaseEday day;
     String series, section, course, cycle;
 
-    public CustomListE(Context mContext, ArrayList<String> object,ArrayList<String>State, DatabaseEday eday, String series, String section, String course, String cycle) {
-        super(mContext, R.layout.singlerecycler, object);
-        this.databaseAday=eday;
+    public CustomListE(Context context, ArrayList<String> object,ArrayList<String>State, String series, String section, String course, String cycle) {
+        super(context, R.layout.singlerecycler, object);
+        day=new DatabaseEday(context);
         this.object = object;
         this.series = series;
         this.section = section;
         this.course = course;
         this.cycle = cycle;
         this.State=State;
-        this.mContext=mContext;
+        this.context=context;
     }
 
 
     @NonNull
     @Override
     public View getView(final int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = inflater.inflate(R.layout.singlerecycler, null, true);
         final CheckBox checkBox1 = convertView.findViewById(R.id.chbx_p);
         TextView textView = convertView.findViewById(R.id.roll_id);
@@ -69,15 +69,28 @@ public class CustomListE extends ArrayAdapter<String> {
             public void onClick(View v) {
                 if (State.get(position).equals("true")) {
                     checkBox1.setChecked(true);
-                    databaseAday.updateState(course, series, section, cycle, "A", object.get(position), "false");
+                    day.updateState(course, series, section, cycle, "E", object.get(position), "false");
                     StateUpdate();
                 } else {
                     checkBox1.setChecked(false);
-                    databaseAday.updateState(course, series, section, cycle, "A", object.get(position), "true");
+                    day.updateState(course, series, section, cycle, "E", object.get(position), "true");
                     StateUpdate();
                 }
 
 
+            }
+        });
+        checkBox1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    day.updateState(course, series, section, cycle, "E", object.get(position), "false");
+                    StateUpdate();
+
+                }else {
+                    day.updateState(course, series, section, cycle, "E", object.get(position), "true");
+                    StateUpdate();
+                }
             }
         });
 
@@ -89,6 +102,6 @@ public class CustomListE extends ArrayAdapter<String> {
 
 
     public void StateUpdate() {
-        State=databaseAday.getState(series,section,course,cycle,"E");
+        State=day.getState(series,section,course,cycle,"E");
     }
 }

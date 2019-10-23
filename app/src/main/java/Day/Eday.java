@@ -34,9 +34,7 @@ public class Eday extends Fragment {
     ArrayList<String> object;
     CustomListE adapter;
     DatabaseEday day;
-    Information information;
-    SharedPreference preference;
-    String condition="";
+
 
     public Eday(Context context, String series, String section, String course, String cycle) {
         this.context=context;
@@ -46,9 +44,7 @@ public class Eday extends Fragment {
         this.cycle=cycle;
         object=new ArrayList<>();
         day=new DatabaseEday(context);
-        preference=new SharedPreference(context);
-        information=new Information(context);
-        condition=information.getEday(course,series,section,preference.getNumber());
+
 
 
     }
@@ -58,16 +54,16 @@ public class Eday extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.eday, null, false);
         listView=view.findViewById(R.id.edaylist);
-        if(condition.equals("true")){
-            print();
-            day.update(course,series,section,cycle,"E");
-        }
+        day.update(course,series,section,cycle,"E");
+        print();
         return view;
     }
 
+
+
     public void print(){
         object=day.getRoll(series,section,course,cycle,"E");
-        adapter=new CustomListE(getActivity(),object,day.getState(series,section,course,cycle,"E"),day,series,section,course,cycle);
+        adapter=new CustomListE(context,object,day.getState(series,section,course,cycle,"E"),series,section,course,cycle);
         listView.setAdapter(adapter);
 
     }

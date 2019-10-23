@@ -34,10 +34,7 @@ public class Dday extends Fragment {
     ArrayList<String> object;
     CustomListD adapter;
     DatabaseDday day;
-    Information information;
-    SharedPreference preference;
-    String condition="";
-    String[] cycles = {"1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "11th", "12th", "13th", "14th"};
+
     public Dday(Context context, String series, String section, String course, String cycle) {
         this.context=context;
         this.series=series;
@@ -46,10 +43,6 @@ public class Dday extends Fragment {
         this.cycle=cycle;
         object=new ArrayList<>();
         day=new DatabaseDday(context);
-        preference=new SharedPreference(context);
-        information=new Information(context);
-        condition=information.getDday(course,series,section,preference.getNumber());
-
 
     }
 
@@ -58,16 +51,15 @@ public class Dday extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.dday, null, false);
         listView=view.findViewById(R.id.ddaylist);
-        if(condition.equals("true")){
-            print();
-            day.update(course,series,section,cycle,"D");
-        }
+        day.update(course,series,section,cycle,"D");
+        print();
         return view;
     }
 
+
     public void print(){
         object=day.getRoll(series,section,course,cycle,"D");
-        adapter=new CustomListD(getActivity(),object,day.getState(series,section,course,cycle,"D"),day,series,section,course,cycle);
+        adapter=new CustomListD(context,object,day.getState(series,section,course,cycle,"D"),series,section,course,cycle);
         listView.setAdapter(adapter);
 
     }

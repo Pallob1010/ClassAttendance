@@ -32,9 +32,6 @@ public class Information extends SQLiteOpenHelper {
     public static final String col_11="Dday";
     public static final String col_12="Eday";
 
-
-
-
     Context context;
     SharedPreference preference;
     public Information(Context context) {
@@ -141,6 +138,29 @@ public class Information extends SQLiteOpenHelper {
         }
         return s;
     }
+
+    public int activeDay(String course,String series,String section){
+
+        int counter=0;
+        if (getAday(course,series,section,preference.getNumber()).equals("true")){
+            counter++;
+        }
+        if (getBday(course,series,section,preference.getNumber()).equals("true")){
+            counter++;
+        }
+        if (getCday(course,series,section,preference.getNumber()).equals("true")){
+            counter++;
+        } if (getDday(course,series,section,preference.getNumber()).equals("true")){
+            counter++;
+        }
+        if (getEday(course,series,section,preference.getNumber()).equals("true")){
+            counter++;
+        }
+
+        return counter;
+    }
+
+
 
     public void DeleteSingle(String course,String series,String section){
         SQLiteDatabase db=this.getWritableDatabase();

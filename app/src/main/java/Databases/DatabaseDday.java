@@ -192,4 +192,17 @@ public class DatabaseDday extends SQLiteOpenHelper {
         return count;
 
     }
+
+    public int getProg(String course, String series, String section,String cycles) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String count="0";
+        String SQL = "SELECT Count FROM " + TableName +" WHERE ID = " + "'" + course+series+section+preference.getNumber()+"'"+" AND Cycle= " + "'" + cycles+ "'"+"AND Day='D'";
+        Cursor cursor = db.rawQuery(SQL, null);
+        if (cursor.moveToNext()){
+            count=cursor.getString(0);
+        }
+
+        return Integer.parseInt(count);
+
+    }
 }

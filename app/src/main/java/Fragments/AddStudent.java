@@ -24,6 +24,7 @@ import Databases.DatabaseCday;
 import Databases.DatabaseDday;
 import Databases.DatabaseEday;
 import Databases.Information;
+import Databases.SharedPreference;
 import Interfaces.Backtrack;
 import spark.loop.classattendance.R;
 
@@ -48,7 +49,8 @@ public class AddStudent extends Fragment implements AdapterView.OnItemSelectedLi
     DatabaseEday eday;
     String[] cycles = {"1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "11th", "12th", "13th", "14th"};
     Dialog dialog;
-
+    String ad="",bd="",cd="",dd="",ed="";
+    SharedPreference preference;
     public AddStudent(Information information, Backtrack backtrack, Context context) {
         this.information = information;
         this.context = context;
@@ -68,6 +70,7 @@ public class AddStudent extends Fragment implements AdapterView.OnItemSelectedLi
             section = Section.get(0);
             course = Course.get(0);
         }
+        preference=new SharedPreference(context);
 
 
         this.backtrack = backtrack;
@@ -164,13 +167,39 @@ public class AddStudent extends Fragment implements AdapterView.OnItemSelectedLi
     }
 
     public void addStudents(String Roll) {
+        ad=information.getAday(course.toUpperCase(),series,section.toUpperCase(),preference.getNumber());
+        bd=information.getBday(course.toUpperCase(),series,section.toUpperCase(),preference.getNumber());
+        cd=information.getCday(course.toUpperCase(),series,section.toUpperCase(),preference.getNumber());
+        dd=information.getDday(course.toUpperCase(),series,section.toUpperCase(),preference.getNumber());
+        ed=information.getEday(course.toUpperCase(),series,section.toUpperCase(),preference.getNumber());
+        if (ad.equals("true")){
+            ad="false";
+
+        }
+        if (bd.equals("true")){
+            bd="false";
+
+        }
+        if (cd.equals("true")){
+            cd="false";
+
+        }
+        if (dd.equals("true")){
+            dd="false";
+
+        }
+        if (ed.equals("true")){
+            ed="false";
+
+        }
+
 
         for (int i = 0; i < 14; i++) {
-            count = aday.inserts(course.toUpperCase(), series, section.toUpperCase(), cycles[i], "A", Roll, "true",0);
-            count = bday.inserts(course.toUpperCase(), series, section.toUpperCase(), cycles[i], "B", Roll, "true",0);
-            count = cday.inserts(course.toUpperCase(), series, section.toUpperCase(), cycles[i], "C", Roll, "true",0);
-            count = dday.inserts(course.toUpperCase(), series, section.toUpperCase(), cycles[i], "D", Roll, "true",0);
-            count = eday.inserts(course.toUpperCase(), series, section.toUpperCase(), cycles[i], "E", Roll, "true",0);
+            count = aday.inserts(course.toUpperCase(), series, section.toUpperCase(), cycles[i], "A", Roll, ad,0);
+            count = bday.inserts(course.toUpperCase(), series, section.toUpperCase(), cycles[i], "B", Roll, bd,0);
+            count = cday.inserts(course.toUpperCase(), series, section.toUpperCase(), cycles[i], "C", Roll, cd,0);
+            count = dday.inserts(course.toUpperCase(), series, section.toUpperCase(), cycles[i], "D", Roll, dd,0);
+            count = eday.inserts(course.toUpperCase(), series, section.toUpperCase(), cycles[i], "E", Roll, ed,0);
 
         }
         Toast.makeText(context, "Done", Toast.LENGTH_SHORT).show();

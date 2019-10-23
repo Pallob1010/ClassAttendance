@@ -30,8 +30,6 @@ import android.widget.Toast;
 
 import com.google.gson.JsonArray;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 
 import Adapters.CustomGrid;
@@ -104,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements Backtrack, Revers
         super.onCreate(savedInstanceState);
         information = new Information(this);
         preference = new SharedPreference(this);
-        preference.saveData("Zaman","01745914445","1234","gs");
         setContentView(R.layout.activity_main);
         drawerLayout = findViewById(R.id.drawerlayout);
         object = new ArrayList<>();
@@ -278,7 +275,7 @@ public class MainActivity extends AppCompatActivity implements Backtrack, Revers
 
     public void cycleOptions(String series, String section, String course) {
         ReverseCaller caller = this;
-        CycleOptions cycleOptions = new CycleOptions(series, section, course, caller);
+        CycleOptions cycleOptions = new CycleOptions(series, section, course, caller,this);
         fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.rootLayout, cycleOptions);
@@ -378,7 +375,7 @@ public class MainActivity extends AppCompatActivity implements Backtrack, Revers
 
     @Override
     public void tablayoutcaller(String series, String section, String course, String cycle) {
-        TablayoutCaller tablayoutCaller = new TablayoutCaller(series, section, course, cycle);
+        TablayoutCaller tablayoutCaller = new TablayoutCaller(series, section, course, cycle,this);
         fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.rootLayout, tablayoutCaller);

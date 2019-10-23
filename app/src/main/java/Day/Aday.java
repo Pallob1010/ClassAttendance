@@ -31,10 +31,6 @@ public class Aday extends Fragment {
     ArrayList<String>object;
     CustomListA adapter;
     DatabaseAday day;
-    Information information;
-    SharedPreference preference;
-    String condition="";
-
     public Aday(Context context, String series, String section, String course, String cycle) {
         this.context=context;
         this.series=series;
@@ -43,9 +39,7 @@ public class Aday extends Fragment {
         this.cycle=cycle;
         object=new ArrayList<>();
         day=new DatabaseAday(context);
-        preference=new SharedPreference(context);
-        information=new Information(context);
-        condition=information.getAday(course,series,section,preference.getNumber());
+
 
 
 
@@ -56,18 +50,15 @@ public class Aday extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.aday, null, false);
         listView=view.findViewById(R.id.adaylist);
-        if(condition.equals("true")){
-            print();
-            day.update(course,series,section,cycle,"A");
-
-        }
-
+        day.update(course,series,section,cycle,"A");
+        print();
         return view;
     }
 
+
     public void print(){
         object=day.getRoll(series,section,course,cycle,"A");
-        adapter=new CustomListA(context,object,day.getState(series,section,course,cycle,"A"),day,series,section,course,cycle);
+        adapter=new CustomListA(context,object,day.getState(series,section,course,cycle,"A"),series,section,course,cycle);
         listView.setAdapter(adapter);
 
 

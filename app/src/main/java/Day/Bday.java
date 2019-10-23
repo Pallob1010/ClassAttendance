@@ -30,9 +30,7 @@ public class Bday extends Fragment {
     ArrayList<String> object;
     CustomListB adapter;
     DatabaseBday day;
-    Information information;
-    SharedPreference preference;
-    String condition="";
+
     public Bday(Context context, String series, String section, String course, String cycle) {
         this.context=context;
         this.series=series;
@@ -41,30 +39,24 @@ public class Bday extends Fragment {
         this.cycle=cycle;
         object=new ArrayList<>();
         day=new DatabaseBday(context);
-        preference=new SharedPreference(context);
-        information=new Information(context);
-        condition=information.getBday(course,series,section,preference.getNumber());
 
 
     }
+
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.bday, null, false);
         listView=view.findViewById(R.id.bdaylist);
-
-        if(condition.equals("true")){
-            print();
-            day.update(course,series,section,cycle,"B");
-
-        }
+        day.update(course,series,section,cycle,"B");
+        print();
         return view;
     }
 
     public void print(){
         object=day.getRoll(series,section,course,cycle,"B");
-        adapter=new CustomListB(getActivity(),object,day.getState(series,section,course,cycle,"B"),day,series,section,course,cycle);
+        adapter=new CustomListB(context,object,day.getState(series,section,course,cycle,"B"),series,section,course,cycle);
         listView.setAdapter(adapter);
 
     }

@@ -14,10 +14,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import Adapters.PagerAdapter;
+import Databases.DatabaseAday;
+import Databases.DatabaseBday;
+import Databases.DatabaseCday;
+import Databases.DatabaseDday;
+import Databases.DatabaseEday;
+import Databases.Information;
+import Databases.SharedPreference;
 import spark.loop.classattendance.MainActivity;
 import spark.loop.classattendance.R;
 
@@ -30,11 +38,32 @@ public class TablayoutCaller extends Fragment {
     String series,section,course,cycle;
     ViewPager viewPager;
     PagerAdapter adapter;
-    public TablayoutCaller(String series, String section, String course, String cycle) {
+    Context context;
+    DatabaseAday aday;
+    DatabaseBday bday;
+    DatabaseCday cday;
+    DatabaseDday dday;
+    DatabaseEday eday;
+    Information information;
+    SharedPreference preference;
+    int numberofTabs=0;
+    int current=0;
+    ArrayList<String>title;
+    public TablayoutCaller(String series, String section, String course, String cycle, Context context) {
         this.series=series;
         this.section=section;
         this.course=course;
         this.cycle=cycle;
+        this.context=context;
+        aday=new DatabaseAday(context);
+        bday=new DatabaseBday(context);
+        cday=new DatabaseCday(context);
+        dday=new DatabaseDday(context);
+        eday=new DatabaseEday(context);
+        information=new Information(context);
+        preference=new SharedPreference(context);
+        title=new ArrayList<>();
+
     }
 
 
@@ -48,15 +77,50 @@ public class TablayoutCaller extends Fragment {
         Section=view.findViewById(R.id.tv3);
         Cycle=view.findViewById(R.id.tv4);
         viewPager=view.findViewById(R.id.viewpager);
-        tabLayout.addTab(tabLayout.newTab().setText("A day"));
-        tabLayout.addTab(tabLayout.newTab().setText("B day"));
-        tabLayout.addTab(tabLayout.newTab().setText("C day"));
-        tabLayout.addTab(tabLayout.newTab().setText("D day"));
-        tabLayout.addTab(tabLayout.newTab().setText("E day"));
+
+        if (information.getAday(course,series,section,preference.getNumber()).equals("true")){
+            tabLayout.addTab(tabLayout.newTab().setText("A day"));
+            title.add("A day");
+            current=aday.getProg(course,series,section,cycle);
+            numberofTabs++;
+
+        }
+        if (information.getBday(course,series,section,preference.getNumber()).equals("true")){
+            tabLayout.addTab(tabLayout.newTab().setText("B day"));
+            title.add("B day");
+            current=current+bday.getProg(course,series,section,cycle);
+            numberofTabs++;
+        }
+        if (information.getCday(course,series,section,preference.getNumber()).equals("true")){
+            tabLayout.addTab(tabLayout.newTab().setText("C day"));
+            title.add("C day");
+            current=current+cday.getProg(course,series,section,cycle);
+            numberofTabs++;
+        }
+        if (information.getDday(course,series,section,preference.getNumber()).equals("true")){
+            tabLayout.addTab(tabLayout.newTab().setText("D day"));
+            title.add("D day");
+            current=current+dday.getProg(course,series,section,cycle);
+            numberofTabs++;
+        }
+        if (information.getEday(course,series,section,preference.getNumber()).equals("true")){
+            tabLayout.addTab(tabLayout.newTab().setText("E day"));
+            title.add("E day");
+            current=current+eday.getProg(course,series,section,cycle);
+            numberofTabs++;
+        }
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        adapter=new PagerAdapter(getChildFragmentManager(),getContext(),series,section,course,cycle);
+        adapter=new PagerAdapter(getChildFragmentManager(),getContext(),series,section,course,cycle,title,numberofTabs );
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+       if(current==0){
+           viewPager.setCurrentItem(current);
+       }else {
+           viewPager.setCurrentItem(current-1);
+       }
+
+
+
         print();
         return view;
     }

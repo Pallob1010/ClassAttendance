@@ -1033,6 +1033,7 @@ drawable design_snackbar_background
 drawable exit
 drawable folder
 drawable folderstate
+drawable green_circle
 drawable homefalse
 drawable homestate
 drawable hometrue
@@ -1066,6 +1067,7 @@ drawable oktrue
 drawable password
 drawable pdffile
 drawable phonenumber
+drawable red_circle
 drawable remove
 drawable save
 drawable savefalse
@@ -1311,6 +1313,7 @@ id rootLayout
 id roundprogress1
 id rt
 id rt12
+id runningindicator
 id save_image_matrix
 id save_non_transition_alpha
 id save_scale_type

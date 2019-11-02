@@ -12,7 +12,10 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import Adapters.CustomListA;
 import Adapters.CustomListC;
@@ -36,7 +39,7 @@ public class Cday extends Fragment {
     DatabaseCday day;
     Information information;
     SharedPreference preference;
-    String condition="";
+    long currenttimes,storedtimes;
     public Cday(Context context, String series, String section, String course, String cycle) {
         this.context=context;
         this.series=series;
@@ -45,6 +48,9 @@ public class Cday extends Fragment {
         this.cycle=cycle;
         object=new ArrayList<>();
         day=new DatabaseCday(context);
+        preference=new SharedPreference(context);
+        currenttimes=Calendar.getInstance().getTimeInMillis();
+
 
     }
 
@@ -53,12 +59,18 @@ public class Cday extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.cday, null, false);
         listView=view.findViewById(R.id.cdaylist);
-        day.update(course,series,section,cycle,"C");
+        storedtimes=Long.parseLong(preference.getDate(course,series,section));
+
+        if((currenttimes-storedtimes)>=3000){
+            day.update(course,series,section,cycle,"C");
+            preference.saveDay(course,series,section);
+        }
         print();
         return view;
     }
 
     public void print(){
+
         object=day.getRoll(series,section,course,cycle,"C");
         adapter=new CustomListC(context,object,day.getState(series,section,course,cycle,"C"),series,section,course,cycle);
         listView.setAdapter(adapter);

@@ -16,24 +16,23 @@ import Databases.DatabaseCday;
 import Databases.DatabaseDday;
 import Databases.DatabaseEday;
 import Databases.Information;
+import Databases.SharedPreference;
 import spark.loop.classattendance.R;
 
 public class CycleAdapter extends BaseAdapter {
-
-    ArrayList<String> cyclelist;
     Context context;
     String course,series,section;
     Information information;
-    int progress=0;
+    int progress=0,current=0;
     DatabaseAday aday;
     DatabaseBday bday;
     DatabaseCday cday;
     DatabaseDday dday;
     DatabaseEday eday;
-    int current=0;
-    public CycleAdapter(Context context, ArrayList<String> cyclelist, String series, String section, String course, DatabaseAday aday, DatabaseBday bday, DatabaseCday cday, DatabaseDday dday, DatabaseEday eday) {
+    SharedPreference preference;
+    String[] cycles = {"1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "11th", "12th", "13th", "14th"};
+    public CycleAdapter(Context context,String series, String section, String course, DatabaseAday aday, DatabaseBday bday, DatabaseCday cday, DatabaseDday dday, DatabaseEday eday) {
         this.context = context;
-        this.cyclelist = cyclelist;
         this.course=course;
         this.series=series;
         this.section=section;
@@ -44,17 +43,19 @@ public class CycleAdapter extends BaseAdapter {
         this.eday =eday;
         information=new Information(context);
         progress= information.activeDay(course,series,section);
+        preference=new SharedPreference(context);
+
 
     }
 
     @Override
     public int getCount() {
-        return cyclelist.size();
+        return cycles.length;
     }
 
     @Override
     public Object getItem(int position) {
-        return cyclelist.get(position);
+        return cycles[position];
     }
 
     @Override
@@ -67,11 +68,14 @@ public class CycleAdapter extends BaseAdapter {
     class ViewHolder {
 
         TextView block,Running;
+        ProgressBar progressBar;
 
         public ViewHolder(View v) {
 
             block = v.findViewById(R.id.cycleid);
             Running=v.findViewById(R.id.runningindicator);
+            progressBar=v.findViewById(R.id.dayprogress);
+            progressBar.setMax(progress);
         }
 
 
@@ -92,20 +96,29 @@ public class CycleAdapter extends BaseAdapter {
             holder = (ViewHolder) row.getTag();
         }
 
+        holder.block.setText(cycles[position]);
 
-        current = aday.getProg(course, series, section, cyclelist.get(position))
-                + bday.getProg(course, series, section, cyclelist.get(position))
-                + cday.getProg(course, series, section, cyclelist.get(position))
-                + dday.getProg(course, series, section, cyclelist.get(position))
-                + eday.getProg(course, series, section, cyclelist.get(position));
+        current=aday.getProg(course,series,section,cycles[position])+
+                bday.getProg(course,series,section,cycles[position])+
+                cday.getProg(course,series,section,cycles[position])+
+                dday.getProg(course,series,section,cycles[position])+
+                eday.getProg(course,series,section,cycles[position]);
 
-        holder.block.setText(cyclelist.get(position));
-           if(current<progress){
+        if(current==progress){
+            holder.Running.setBackgroundResource(R.drawable.red_circle);
+            holder.progressBar.setProgress(current);
+        }else if(current>0) {
             holder.Running.setBackgroundResource(R.drawable.green_circle);
+            holder.progressBar.setProgress(current);
+            preference.saveRunningCycle(course,series,section,cycles[position]);
 
         }else {
-               holder.Running.setBackgroundResource(R.drawable.red_circle);
-           }
+            holder.progressBar.setProgress(current);
+        }
+
+
+
+
         return row;
     }
 

@@ -9,8 +9,9 @@
     >
 
 
-    <TextView
-        android:id="@+id/cycleshow"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constlay"
+        android:background="@color/colorPrimary"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_marginStart="4dp"
@@ -18,14 +19,47 @@
         android:layout_marginTop="4dp"
         android:layout_marginEnd="4dp"
         android:layout_marginRight="4dp"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/cyclegrid"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" >
+
+
+        <TextView
+            android:id="@+id/totalShow"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="center|left"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/currentCycle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/currentCycle"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/green_circle"
+            android:gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/totalShow"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
 
     <GridView
         android:id="@+id/cyclegrid"
@@ -45,5 +79,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cycleshow" />
+        app:layout_constraintTop_toBottomOf="@+id/constlay" />
 </android.support.constraint.ConstraintLayout>

@@ -1146,6 +1146,7 @@ id clip_horizontal
 id clip_vertical
 id collapseActionView
 id confirmstudent
+id constlay
 id container
 id content
 id contentPanel
@@ -1157,11 +1158,12 @@ id courselistdialog
 id coursespinner
 id create
 id cs
+id currentCycle
 id custom
 id customPanel
 id cyclegrid
 id cycleid
-id cycleshow
+id dayprogress
 id ddaycheckbox
 id ddaylist
 id decor_content_parent
@@ -1401,6 +1403,7 @@ id title_template
 id titsew
 id top
 id topPanel
+id totalShow
 id totalclass
 id totalstudentsid
 id touch_outside

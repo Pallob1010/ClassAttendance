@@ -3,14 +3,18 @@ package Databases;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import Model.Constants;
 
 public class SharedPreference {
 
     Context context;
-
+    long times;
+    SimpleDateFormat format;
     public SharedPreference(Context context) {
         this.context=context;
     }
@@ -31,6 +35,27 @@ public class SharedPreference {
         editor.putString(Constants.SYNCTIME,time);
         editor.commit();
 
+    }
+
+    public void saveDay(String course,String series,String section){
+        times= Calendar.getInstance().getTimeInMillis();
+        SharedPreferences.Editor editor = context.getSharedPreferences(Constants.APPS_PREFERENCE, Context.MODE_PRIVATE).edit();
+        editor.putString(course+series+section+getNumber(),String.valueOf(times));
+        editor.commit();
+    }
+
+    public void saveRunningCycle(String course,String series,String section,String cycle){
+        SharedPreferences.Editor editor = context.getSharedPreferences(Constants.APPS_PREFERENCE, Context.MODE_PRIVATE).edit();
+        editor.putString(Constants.CYCLE+course+series+section+getNumber(),cycle);
+        editor.commit();
+    }
+    public String getRunningCycle(String course,String series,String section){
+        return (context.getSharedPreferences(Constants.APPS_PREFERENCE, Context.MODE_PRIVATE).getString(Constants.CYCLE+course+series+section+getNumber(),""));
+    }
+
+
+    public String getDate(String course,String series,String section){
+        return (context.getSharedPreferences(Constants.APPS_PREFERENCE, Context.MODE_PRIVATE).getString(course+series+section+getNumber(),"50000"));
     }
 
     public String getNumber(){

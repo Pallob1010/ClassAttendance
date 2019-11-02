@@ -31,6 +31,7 @@ public class Aday extends Fragment {
     ArrayList<String>object;
     CustomListA adapter;
     DatabaseAday day;
+    SharedPreference preference;
     public Aday(Context context, String series, String section, String course, String cycle) {
         this.context=context;
         this.series=series;
@@ -39,9 +40,7 @@ public class Aday extends Fragment {
         this.cycle=cycle;
         object=new ArrayList<>();
         day=new DatabaseAday(context);
-
-
-
+        preference=new SharedPreference(context);
 
     }
 
@@ -51,6 +50,7 @@ public class Aday extends Fragment {
         view = inflater.inflate(R.layout.aday, null, false);
         listView=view.findViewById(R.id.adaylist);
         day.update(course,series,section,cycle,"A");
+        preference.saveDay(course,series,section);
         print();
         return view;
     }

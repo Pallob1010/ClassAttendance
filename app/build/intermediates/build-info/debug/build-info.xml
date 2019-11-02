@@ -5,31 +5,36 @@
     build-mode="COLD"
     density="xhdpi"
     format="10"
+    ir-eligibility="COMPATIBLE"
     plugin-version="3.3.2"
-    timestamp="1571800923655"
+    timestamp="1572286496164"
     token="-8260528571585531281"
     verifier="COLD_SWAP_REQUESTED" >
 
     <task
         name="javac"
-        duration="0" />
+        duration="2416" />
     <task
         name="instant-run-dex"
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="0" />
+        duration="79" />
     <task
         name="verifier"
-        duration="0" />
+        duration="22" />
+
+    <artifact
+        location="/mnt/Software/Project/ClassAttendance/app/build/intermediates/split-apk/debug/slices/slice_7.apk"
+        type="SPLIT" />
+    <artifact
+        location="/mnt/Software/Project/ClassAttendance/app/build/intermediates/instant-run-apk/debug/app-debug.apk"
+        type="SPLIT_MAIN" />
 
     <build
         build-mode="FULL"
-        timestamp="1571800305832"
+        timestamp="1572285647862"
         verifier="FULL_BUILD_REQUESTED" >
-        <artifact
-            location="/mnt/Software/Project/ClassAttendance/app/build/intermediates/instant-run-apk/debug/app-debug.apk"
-            type="SPLIT_MAIN" />
         <artifact
             location="/mnt/Software/Project/ClassAttendance/app/build/intermediates/split-apk/debug/slices/slice_0.apk"
             type="SPLIT" />
@@ -46,13 +51,13 @@
             location="/mnt/Software/Project/ClassAttendance/app/build/intermediates/split-apk/debug/slices/slice_9.apk"
             type="SPLIT" />
         <artifact
+            location="/mnt/Software/Project/ClassAttendance/app/build/intermediates/split-apk/debug/dep/dependencies.apk"
+            type="SPLIT" />
+        <artifact
             location="/mnt/Software/Project/ClassAttendance/app/build/intermediates/split-apk/debug/slices/slice_1.apk"
             type="SPLIT" />
         <artifact
             location="/mnt/Software/Project/ClassAttendance/app/build/intermediates/split-apk/debug/slices/slice_4.apk"
-            type="SPLIT" />
-        <artifact
-            location="/mnt/Software/Project/ClassAttendance/app/build/intermediates/split-apk/debug/dep/dependencies.apk"
             type="SPLIT" />
         <artifact
             location="/mnt/Software/Project/ClassAttendance/app/build/intermediates/split-apk/debug/slices/slice_7.apk"
@@ -63,11 +68,14 @@
         <artifact
             location="/mnt/Software/Project/ClassAttendance/app/build/intermediates/split-apk/debug/slices/slice_5.apk"
             type="SPLIT" />
+        <artifact
+            location="/mnt/Software/Project/ClassAttendance/app/build/intermediates/instant-run-apk/debug/app-debug.apk"
+            type="SPLIT_MAIN" />
     </build>
     <build
         build-mode="COLD"
         ir-eligibility="COMPATIBLE"
-        timestamp="1571800836887"
+        timestamp="1572286021295"
         verifier="COLD_SWAP_REQUESTED" >
         <artifact
             location="/mnt/Software/Project/ClassAttendance/app/build/intermediates/split-apk/debug/slices/slice_1.apk"
@@ -78,7 +86,15 @@
     </build>
     <build
         build-mode="COLD"
-        timestamp="1571800923655"
-        verifier="COLD_SWAP_REQUESTED" />
+        ir-eligibility="COMPATIBLE"
+        timestamp="1572286496164"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="/mnt/Software/Project/ClassAttendance/app/build/intermediates/split-apk/debug/slices/slice_7.apk"
+            type="SPLIT" />
+        <artifact
+            location="/mnt/Software/Project/ClassAttendance/app/build/intermediates/instant-run-apk/debug/app-debug.apk"
+            type="SPLIT_MAIN" />
+    </build>
 
 </instant-run>

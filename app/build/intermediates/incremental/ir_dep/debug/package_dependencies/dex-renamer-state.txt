@@ -1,4 +1,4 @@
-#Tue Oct 22 22:32:07 BDT 2019
+#Mon Oct 28 23:59:36 BDT 2019
 base.0=/mnt/Software/Project/ClassAttendance/app/build/intermediates/transforms/dexMerger/debug/10
 path.0=classes.dex
 renamed.0=classes.dex

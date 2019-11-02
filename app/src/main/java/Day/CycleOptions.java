@@ -12,8 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.TextView;
-
-import java.util.ArrayList;
+import android.widget.Toast;
 
 import Adapters.CycleAdapter;
 import Databases.DatabaseAday;
@@ -22,6 +21,7 @@ import Databases.DatabaseCday;
 import Databases.DatabaseDday;
 import Databases.DatabaseEday;
 import Databases.Information;
+import Databases.SharedPreference;
 import Interfaces.ReverseCaller;
 import spark.loop.classattendance.R;
 
@@ -31,20 +31,20 @@ public class CycleOptions extends Fragment implements AdapterView.OnItemClickLis
 
     View view;
     GridView gridView;
-    TextView cycleshow;
+    TextView cycleshow,CurrentCycle;
     CycleAdapter adapter;
-    ArrayList<String>cyclelist;
     String series,section,course;
     ReverseCaller caller;
     Context context;
     Information information;
-    int progress=0;
-    int current=0,current2;
+    int progress=0,current=0;
     DatabaseAday aday;
     DatabaseBday bday;
     DatabaseCday cday;
     DatabaseDday dday;
     DatabaseEday eday;
+    SharedPreference preference;
+    String[] cycles = {"1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th", "10th", "11th", "12th", "13th", "14th"};
     public CycleOptions(String series, String section, String course, ReverseCaller caller,Context context) {
 
         this.caller=caller;
@@ -52,27 +52,12 @@ public class CycleOptions extends Fragment implements AdapterView.OnItemClickLis
         this.series=series;
         this.course=course;
         this.context=context;
-        cyclelist=new ArrayList<>();
-        cyclelist.add("1st");
-        cyclelist.add("2nd");
-        cyclelist.add("3rd");
-        cyclelist.add("4th");
-        cyclelist.add("5th");
-        cyclelist.add("6th");
-        cyclelist.add("7th");
-        cyclelist.add("8th");
-        cyclelist.add("9th");
-        cyclelist.add("10th");
-        cyclelist.add("11th");
-        cyclelist.add("12th");
-        cyclelist.add("13th");
-        cyclelist.add("14th");
         aday=new DatabaseAday(context);
         bday=new DatabaseBday(context);
         cday=new DatabaseCday(context);
         dday=new DatabaseDday(context);
         eday=new DatabaseEday(context);
-
+        preference=new SharedPreference(context);
     }
 
     @Nullable
@@ -86,10 +71,12 @@ public class CycleOptions extends Fragment implements AdapterView.OnItemClickLis
     }
 
     public void print(){
-        cycleshow=view.findViewById(R.id.cycleshow);
-        cycleshow.setText("Series :"+series+"\nSection :"+section+"\n"+course);
+        cycleshow=view.findViewById(R.id.totalShow);
+        CurrentCycle=view.findViewById(R.id.currentCycle);
+        cycleshow.setText("Series   : "+series+"\nSection : "+section+"\nCourse  : "+course);
+        CurrentCycle.setText(preference.getRunningCycle(course,series,section));
         gridView=view.findViewById(R.id.cyclegrid);
-        adapter=new CycleAdapter(context,cyclelist,series,section,course,aday,bday,cday,dday,eday);
+        adapter=new CycleAdapter(context,series,section,course,aday,bday,cday,dday,eday);
         gridView.setAdapter(adapter);
         gridView.setOnItemClickListener(this);
 
@@ -97,20 +84,21 @@ public class CycleOptions extends Fragment implements AdapterView.OnItemClickLis
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (position>=1) {
-            current = aday.getProg(course, series, section, cyclelist.get(position-1))
-                    + bday.getProg(course, series, section, cyclelist.get(position-1))
-                    + cday.getProg(course, series, section, cyclelist.get(position-1))
-                    + dday.getProg(course, series, section, cyclelist.get(position-1))
-                    + eday.getProg(course, series, section, cyclelist.get(position-1));
-        }else{
-            caller.tablayoutcaller(series,section,course,cyclelist.get(position));
-
-        }
-        if(current<progress){
+        preference.saveRunningCycle(course,series,section,cycles[position]);
+        if(position==0){
+          caller.tablayoutcaller(series,section,course,cycles[position]);
         }else {
-            caller.tablayoutcaller(series,section,course,cyclelist.get(position));
-        }
+            current=aday.getProg(course,series,section,cycles[position-1])+
+                    bday.getProg(course,series,section,cycles[position-1])+
+                    cday.getProg(course,series,section,cycles[position-1])+
+                    dday.getProg(course,series,section,cycles[position-1])+
+                    eday.getProg(course,series,section,cycles[position-1]);
+                if(current==progress){
+                    caller.tablayoutcaller(series,section,course,cycles[position]);
+                }else {
+                    Toast.makeText(context, "Previous cycle is not completed yet!!!", Toast.LENGTH_SHORT).show();
+                }
 
+        }
     }
 }

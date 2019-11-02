@@ -35,6 +35,7 @@ public class LogReg extends AppCompatActivity implements View.OnClickListener, A
     Dialog dialog;
     EditText regName, regNumber, regPass, regConPass, logNumber, logPass;
     Spinner spinner;
+    Dialog dialoprogress;
     ArrayAdapter<String> adapter;
     String designation[]={"Lecturer","Assistant Professor","Associate Professor","Professor"};
     String teacherdesignation="Lecturer";
@@ -43,6 +44,9 @@ public class LogReg extends AppCompatActivity implements View.OnClickListener, A
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
         preference = new SharedPreference(this);
+        dialoprogress=new Dialog(this);
+        dialoprogress.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialoprogress.setContentView(R.layout.progressdialog);
         TextView NotRegis = findViewById(R.id.notRegistered);
         TextView forgetPass = findViewById(R.id.forgotpassword);
         logNumber = findViewById(R.id.edittextphoneNumber);
@@ -200,6 +204,7 @@ public class LogReg extends AppCompatActivity implements View.OnClickListener, A
     }
 
     public void Online(final String number,final String password){
+        dialoprogress.show();
         ApiService service = ApiClient.getClient().create(ApiService.class);
         Call<List<LoginResult>>call=service.postdata(number);
         call.enqueue(new Callback<List<LoginResult>>() {
@@ -209,7 +214,7 @@ public class LogReg extends AppCompatActivity implements View.OnClickListener, A
                     String name=response.body().get(0).getName();
                     String pass=response.body().get(0).getPassword();
                     String desg=response.body().get(0).getDesignation();
-
+                    dialoprogress.dismiss();
                     if(password.equals(pass)){
                         preference.saveData(name,number,password,desg);
                         startActivity(new Intent(LogReg.this,MainActivity.class));
@@ -225,6 +230,7 @@ public class LogReg extends AppCompatActivity implements View.OnClickListener, A
             @Override
             public void onFailure(Call<List<LoginResult>> call, Throwable t) {
                 Toast.makeText(LogReg.this, "Number Doesn't exist!!", Toast.LENGTH_SHORT).show();
+                dialoprogress.dismiss();
             }
         });
 

@@ -113,13 +113,7 @@ public class TablayoutCaller extends Fragment {
         adapter=new PagerAdapter(getChildFragmentManager(),getContext(),series,section,course,cycle,title,numberofTabs );
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
-       if(current==0){
-           viewPager.setCurrentItem(current);
-       }else {
-           viewPager.setCurrentItem(current-1);
-       }
-
-
+        viewPager.setCurrentItem(current);
 
         print();
         return view;

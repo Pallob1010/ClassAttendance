@@ -13,7 +13,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import Adapters.CustomListA;
 import Adapters.CustomListD;
@@ -34,7 +37,8 @@ public class Dday extends Fragment {
     ArrayList<String> object;
     CustomListD adapter;
     DatabaseDday day;
-
+    SharedPreference preference;
+    long currenttimes,storedtimes;
     public Dday(Context context, String series, String section, String course, String cycle) {
         this.context=context;
         this.series=series;
@@ -43,6 +47,8 @@ public class Dday extends Fragment {
         this.cycle=cycle;
         object=new ArrayList<>();
         day=new DatabaseDday(context);
+        preference=new SharedPreference(context);
+        currenttimes= Calendar.getInstance().getTimeInMillis();
 
     }
 
@@ -51,7 +57,11 @@ public class Dday extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.dday, null, false);
         listView=view.findViewById(R.id.ddaylist);
-        day.update(course,series,section,cycle,"D");
+        storedtimes=Long.parseLong(preference.getDate(course,series,section));
+        if((currenttimes-storedtimes)>=3000){
+            day.update(course,series,section,cycle,"D");
+            preference.saveDay(course,series,section);
+        }
         print();
         return view;
     }
